@@ -72,7 +72,7 @@ model ClosedDay {
   date  String  @unique
 }
 
-model MenuItem {
+model Product {
   id                 String  @id @default(auto()) @map("_id") @db.ObjectId
   name               String
   category           String
@@ -90,12 +90,6 @@ model Reservation {
   preOrder        PreOrder?
 }
 
-model Order {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
-  menuItems   OrderItem[]
-  totalPrice  Float
-}
-
 enum Role {
   ADMIN
   USER 
@@ -109,10 +103,4 @@ type PreOrder {
 type PreOrderItem {
   id                 String  @db.ObjectId
   quantity           Int
-}
-
-type OrderItem {
-  menuItemId  String  @db.ObjectId
-  quantity    Int
-  subtotal    Float
 }

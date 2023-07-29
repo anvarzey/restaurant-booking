@@ -3,9 +3,7 @@ import type { Metadata } from 'next'
 import { ReactElement } from 'react'
 import FetcherProvider from '~/components/FetcherProvider'
 import AuthProvider from '~/providers/AuthProvider'
-import Header from '~/components/Header'
 import { inter } from '~/utils/fonts'
-import Footer from '~/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,11 +19,9 @@ export default async function RootLayout ({
     <html lang='en'>
       <body className={inter.className}>
         <AuthProvider>
-          <Header />
           <FetcherProvider>
             {children}
           </FetcherProvider>
-          <Footer />
         </AuthProvider>
       </body>
     </html>

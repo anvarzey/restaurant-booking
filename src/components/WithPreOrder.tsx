@@ -5,7 +5,7 @@ import {
 } from 'react'
 import useSWR from 'swr'
 import useCartStore from '~/lib/zustand/store'
-import MenuItem from './MenuItem'
+import Product from './Product'
 import Cart from './Cart'
 
 export default function WithPreOrder (): ReactElement {
@@ -24,8 +24,8 @@ export default function WithPreOrder (): ReactElement {
             : (
               <ul className='custom-grid'>
                 {
-                  data.map((menuItem: any, i: number) => (
-                    <MenuItem menuItem={menuItem} key={i} />
+                  data.map((product: any, i: number) => (
+                    <Product product={product} key={i} />
                   ))
                 }
               </ul>)

@@ -2,18 +2,18 @@ import { ReactElement } from 'react'
 import { prisma } from '~/lib/prisma'
 
 export default async function page (): Promise<ReactElement> {
-  const menuITems = await prisma.menuItem.findMany()
+  const products = await prisma.product.findMany()
   return (
-    <div>
+    <div className='grow'>
       <ul className='w-full'>
         {
-          menuITems.map(menuItem => (
-            <li key={menuItem.id} className='w-full flex items-center justify-between'>
+          products.map(product => (
+            <li key={product.id} className='w-full flex items-center justify-between'>
               <span>
-                {menuItem.name}
+                {product.name}
               </span>
               <span>
-                {menuItem.category}
+                {product.category}
               </span>
             </li>
           ))

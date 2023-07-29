@@ -184,6 +184,6 @@
 .custom-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  grid-auto-rows: max-content;
-  place-items: center;
+  grid-auto-rows: minmax(25rem, 1fr);
+  gap: 1rem;
 }
