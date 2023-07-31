@@ -12,10 +12,7 @@ export default function Products ({ searchParams }: { searchParams: { [key: stri
     url += `?${keys[0]}=` + values[0]
   }
 
-  console.log(searchParams)
   const { data, error, isLoading } = useSWR(url)
-
-  console.log(data)
 
   return (
     <div className='grow'>

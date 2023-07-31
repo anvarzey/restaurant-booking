@@ -5,9 +5,9 @@ import { isAfter, isBefore, parse } from 'date-fns'
 
 export default function TimePicker ({ date, handleTime }: { date: string, handleTime: (newTime: string) => void }): ReactElement {
   const weekDay = new Date(date).getDay()
-  // const getOpeningHours = await fetch(`/api/hours/${weekDay}`).then(async res => await res.json())
+
   const { data, error, isLoading } = useSWR(`/api/hours/${weekDay}`)
-  // console.log(getOpeningHours())
+
   return (
     <div>
       <h2>Times</h2>

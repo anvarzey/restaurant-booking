@@ -24,8 +24,8 @@ export default function Header (): ReactElement {
   ]
 
   return (
-    <header className='lg:px-10 lg:py-4'>
-      <div className='flex items-center justify-between border-b border-neutral-300'>
+    <header className='lg:px-20 lg:py-4'>
+      <div className='flex items-center justify-between border-b border-neutral-300 lg:pb-4'>
         <div className={`text-3xl ${artifika.className}`}>LOGO</div>
         <nav>
           <ul className='flex items-center gap-3'>
