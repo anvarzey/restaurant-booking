@@ -1,7 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { ReactElement, useState } from 'react'
+import {
+  ReactElement,
+  useState
+} from 'react'
 import useCartStore from '~/lib/zustand/store'
 import { artifika } from '~/utils/fonts'
 import formatPrice from '~/utils/formatPrice'
@@ -26,6 +29,8 @@ export default function Product ({ product }: IProps): ReactElement {
   const handleClick = (): void => {
     add({
       id: product.id,
+      name: product.name,
+      image: product.image,
       quantity: quant,
       price: product.price,
       priceWithDiscount: product.priceWithDiscount
@@ -33,9 +38,8 @@ export default function Product ({ product }: IProps): ReactElement {
   }
 
   return (
-    <li className='border border-neutral-600 px-2 py-4 lg:px-4'>
+    <li className='bg-white border border-neutral-600 rounded-2xl px-2 py-4 lg:px-4'>
       <div className='h-1/2 w-full relative flex justify-center'>
-        {/* <img src={product.image} alt='Alter ego' /> */}
         <Image src={product.image} fill alt={product.name} className='object-contain' />
       </div>
       <div className='pt-2 flex flex-col gap-1'>
@@ -61,7 +65,7 @@ export default function Product ({ product }: IProps): ReactElement {
             name='quantity'
             id='quantity'
             onChange={(e) => setQuant(Number(e.target.value))}
-            className='cursor-pointer appearance-none px-6 py-1 bg-neutral-200 text-neutral-800 border border-neutral-800'
+            className='cursor-pointer appearance-none px-6 py-1 bg-neutral-100 text-neutral-800 border border-primary rounded-s-xl'
           >
             <option value='0'>0</option>
             <option value='1'>1</option>
@@ -77,7 +81,7 @@ export default function Product ({ product }: IProps): ReactElement {
           <button
             onClick={handleClick}
             disabled={quant <= 0}
-            className='w-full cursor-pointer py-1 bg-neutral-800 border border-neutral-800 text-neutral-100 disabled:opacity-50 disabled:cursor-default'
+            className='w-full cursor-pointer py-1 rounded-e-xl bg-primary border border-primary text-white disabled:opacity-50 disabled:cursor-default'
           >
             Add to cart
           </button>

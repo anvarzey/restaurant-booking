@@ -1,8 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { ReactElement } from 'react'
-import FetcherProvider from '~/components/FetcherProvider'
-import AuthProvider from '~/providers/AuthProvider'
+import Providers from '~/lib/providers'
 import { inter } from '~/utils/fonts'
 
 export const metadata: Metadata = {
@@ -18,11 +17,9 @@ export default async function RootLayout ({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <AuthProvider>
-          <FetcherProvider>
-            {children}
-          </FetcherProvider>
-        </AuthProvider>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   )

@@ -1,15 +1,23 @@
 'use client'
 
+import Image from 'next/image'
 import { ReactElement, useEffect, useState } from 'react'
 import { HiOutlinePencilSquare } from 'react-icons/hi2'
 import { VscChromeClose } from 'react-icons/vsc'
-import useCartStore from '~/lib/zustand/store'
+// import useCartStore from '~/lib/zustand/store'
+// import { shallow } from 'zustand/shallow'
 import { artifika } from '~/utils/fonts'
+import formatPrice from '~/utils/formatPrice'
+// import dynamic from 'next/dynamic'
+
+// const useCartStore = dynamic(async () => await import('~/lib/zustand/store'), { ssr: false })
 
 export default function ModalCart (): ReactElement {
-  const items = useCartStore(state => state.items)
-  const [isOpen, setIsOpen] = useState(false)
+  // const [values, setValues] = { items: [], subtotal: 0, total: 0 }
   const [isClient, setIsClient] = useState(false)
+  // const { items, subtotal, total } = useCartStore(state => ({ items: state.items, subtotal: state.subtotal, total: state.total }), shallow)
+  // const reset = useCartStore(state => state.reset)
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = (): void => {
     setIsOpen(true)
@@ -39,14 +47,33 @@ export default function ModalCart (): ReactElement {
               <VscChromeClose className='h-full w-auto' />
             </button>
           </div>
+          <div>
+            <button onClick={reset}>
+              Clear Order
+            </button>
+          </div>
           <ul className='mb-8'>
             {
               items !== undefined &&
                 items.length >= 1 &&
                 isClient
                 ? items.map((item, i) => (
-                  <li key={i}>
-                    {item.quantity}
+                  <li key={i} className='flex items-center gap-4'>
+                    <div className='relative h-20 w-20'>
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className='object-contain'
+                      />
+                    </div>
+                    <div className={`grow ${artifika.className}`}>
+                      {item.name}
+                    </div>
+                    <div className=''>
+                      x
+                      {item.quantity}
+                    </div>
                   </li>
                 ))
 
@@ -56,6 +83,14 @@ export default function ModalCart (): ReactElement {
                   </li>)
             }
           </ul>
+          <div className='flex items-center justify-between'>
+            <div>Subtotal</div>
+            <div>{formatPrice(subtotal)}</div>
+          </div>
+          <div className='flex items-center justify-between'>
+            <div>Total</div>
+            <div>{formatPrice(total)}</div>
+          </div>
           <button className='w-full py-2 border-2 border-neutral-800 hover:bg-neutral-800 hover:text-neutral-100 transition-all ease-in-out duration-75'>Book your seat</button>
         </div>
       </div>
