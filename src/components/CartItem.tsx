@@ -5,6 +5,8 @@ import useCartStore from '~/lib/zustand/store'
 
 interface Item {
   id: string
+  name: string
+  image: string
   quantity: number
   price: number
   priceWithDiscount: number
@@ -19,14 +21,16 @@ export default function CartItem ({ item }: { item: Item }): ReactElement {
     update(id, quantity)
   }
   return (
-    <li className='flex items-center justify-around'>
-      <span>{item.id}</span>
+    <li className='flex items-center justify-between'>
+      <div className='text-lg'>{item.name}</div>
       <div>
+        <span>x</span>
         <select
           name=''
           id=''
           value={item.quantity}
           onChange={handleChange}
+          className='cursor-pointer'
         >
           <option value='1'>1</option>
           <option value='2'>2</option>

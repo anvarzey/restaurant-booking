@@ -4,41 +4,34 @@ import {
   ReactElement
 } from 'react'
 import useSWR from 'swr'
-import useCartStore from '~/lib/zustand/store'
 import Product from './Product'
 import Cart from './Cart'
+import { artifika } from '~/utils/fonts'
 
 export default function WithPreOrder (): ReactElement {
   const { data, error, isLoading } = useSWR('/api/menu')
-  const total = useCartStore(state => state.total)
-  const reset = useCartStore(state => state.reset)
 
   return (
     <div>
-      <h2>PreOrder</h2>
-      {
-        error !== undefined
-          ? <div>An error has been occurred</div>
-          : isLoading
-            ? <div>Loading...</div>
-            : (
-              <ul className='custom-grid'>
-                {
-                  data.map((product: any, i: number) => (
-                    <Product product={product} key={i} />
-                  ))
-                }
-              </ul>)
-      }
-      <div>
+      <h2 className={`text-center text-3xl pb-8 ${artifika.className}`}>PreOrder</h2>
+      <div className='flex gap-4'>
+        <div className='grow'>
+          {
+            error !== undefined
+              ? <div>An error has been occurred</div>
+              : isLoading
+                ? <div>Loading...</div>
+                : (
+                  <ul className='custom-grid'>
+                    {
+                      data.map((product: any, i: number) => (
+                        <Product product={product} key={i} />
+                      ))
+                    }
+                  </ul>)
+          }
+        </div>
         <Cart />
-        <div className='flex items-center justify-around'>
-          <div>Subtotal</div>
-          <div>${total}</div>
-        </div>
-        <div>
-          <button onClick={() => reset()}>Empty Cart</button>
-        </div>
       </div>
     </div>
   )

@@ -2,16 +2,29 @@ import { ReactElement } from 'react'
 import { times } from '~/utils/times'
 import useSWR from 'swr'
 import { isAfter, isBefore, parse } from 'date-fns'
+import { artifika } from '~/utils/fonts'
 
-export default function TimePicker ({ date, handleTime }: { date: string, handleTime: (newTime: string) => void }): ReactElement {
+interface IProps {
+  date: string
+  handleReset: () => void
+  handleTime: (newTime: string) => void
+}
+
+export default function TimePicker ({ date, handleReset, handleTime }: IProps): ReactElement {
   const weekDay = new Date(date).getDay()
 
   const { data, error, isLoading } = useSWR(`/api/hours/${weekDay}`)
 
   return (
     <div>
-      <h2>Times</h2>
-      <ul className='flex flex-wrap items-center gap-2'>
+      <h2 className={`text-3xl text-center ${artifika.className}`}>Pick your time</h2>
+      <div className='pb-8'>
+        <button onClick={handleReset} className='px-2 py-1 font-bold text-primary'>
+          Return to calendar
+        </button>
+        <h2 className='text-lg font-semibold text-center mb-4'>Available Times</h2>
+      </div>
+      <ul className='times-grid'>
         {
           error !== undefined
             ? <div>An error has been occurred !</div>
@@ -22,7 +35,7 @@ export default function TimePicker ({ date, handleTime }: { date: string, handle
                 .map(timeInRange => (
                   <li
                     key={timeInRange.index}
-                    className='cursor-pointer font-bold text-emerald-600 hover:bg-emerald-100 px-2 py-1'
+                    className='cursor-pointer font-bold border text-neutral-700 border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-xl flex items-center justify-center'
                     onClick={() => handleTime(timeInRange.value)}
                   >
                     {timeInRange.value}

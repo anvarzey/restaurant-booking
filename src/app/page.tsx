@@ -4,7 +4,6 @@ import { artifika } from '~/utils/fonts'
 import Header from '~/components/Header'
 import Footer from '~/components/Footer'
 import Image from 'next/image'
-import Frame from '~/components/Frame'
 import Carrousel from '~/components/Carrousel'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { VscDebugBreakpointFunction } from 'react-icons/vsc'
@@ -100,16 +99,14 @@ export default async function Home (): Promise<ReactElement> {
           </div>
         </div>
         <div className='h-[80vh]'>
-          <div className='h-full flex items-center lg:px-20 lg:py-16'>
-            <div className='w-1/2 h-full flex justify-center'>
-              <Frame>
-                <Image
-                  src='https://res.cloudinary.com/dfyxdowwb/image/upload/c_scale,q_auto:best,w_600/v1690632789/restaurant-booking/desserts/alfajor-sablee_tfmzmk.webp'
-                  alt='Alfajorcito'
-                  fill
-                  className='object-contain'
-                />
-              </Frame>
+          <div className='h-full flex items-center justify-between lg:px-20 lg:py-16'>
+            <div className='relative w-1/3 h-full flex justify-center shadow-lg rounded-xl'>
+              <Image
+                src='https://res.cloudinary.com/dfyxdowwb/image/upload/c_scale,q_auto:best,w_600/v1690632789/restaurant-booking/desserts/alfajor-sablee_tfmzmk.webp'
+                alt='Alfajorcito'
+                fill
+                className='object-cover rounded-xl'
+              />
             </div>
             <div className='w-1/2 flex flex-col justify-around h-3/4'>
               <div className='flex flex-col justify-between'>
@@ -121,7 +118,7 @@ export default async function Home (): Promise<ReactElement> {
                 </p>
               </div>
               <div className='flex items-center gap-4 border-b-2 border-neutral-800 py-4'>
-                <input type='text' placeholder='Enter your email address' className='grow outline-none' />
+                <input type='text' placeholder='Enter your email address' className='grow outline-none bg-transparent text-lg' />
                 <button className='h-8 w-8'>
                   <AiOutlineArrowRight className='h-full w-auto' />
                 </button>

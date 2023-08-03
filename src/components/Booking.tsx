@@ -48,7 +48,7 @@ export default function Booking ({ closedDays }: { closedDays: string[] }): Reac
         date === undefined
           ? <Calendar closedDays={closedDays} handleDate={handleDate} />
           : time === undefined
-            ? <TimePicker date={date} handleTime={handleTime} />
+            ? <TimePicker date={date} handleTime={handleTime} handleReset={handleReset} />
             : preOrder === PRE_ORDER.NOT_CONFIRMED
               ? <PreOrderModal handlePreOrder={handlePreOrder} />
               : preOrder === PRE_ORDER.PRE_ORDER

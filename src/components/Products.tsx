@@ -4,7 +4,11 @@ import { ReactElement } from 'react'
 import useSWR from 'swr'
 import Product from '~/components/Product'
 
-export default function Products ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }): ReactElement {
+interface IProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export default function Products ({ searchParams }: IProps): ReactElement {
   let url = '/api/menu'
   if (searchParams !== undefined) {
     const keys = Object.keys(searchParams)
