@@ -9,6 +9,9 @@ const authOptions = {
     strategy: 'jwt' as SessionStrategy
   },
   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: '/auth/signin'
+  },
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -40,7 +43,7 @@ const authOptions = {
           return null
         }
 
-        const canLogIn = await bcrypt.compare(password, user.password)
+        const canLogIn = await bcrypt.compare(password, user.passwordHashed)
 
         if (!canLogIn) {
           // return NextResponse.json({ message: 'Email or password incorrect' }, { status: 400 })
