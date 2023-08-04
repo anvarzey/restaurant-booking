@@ -40,7 +40,7 @@ export default function TimePicker ({ date, handleReset, handleTime }: IProps): 
                   .map(timeInRange => (
                     <li
                       key={timeInRange.index}
-                      className='cursor-pointer font-bold border text-neutral-700 border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-xl flex items-center justify-center'
+                      className='cursor-pointer font-bold border text-neutral-700 border-primary bg-neutral-50 hover:bg-primary hover:text-white px-4 py-2 rounded-xl flex items-center justify-center'
                       onClick={() => handleTime(timeInRange.value)}
                     >
                       {timeInRange.value}

@@ -19,7 +19,7 @@ export default function Calendar ({ closedDays, handleDate }: IProps): ReactElem
 
   return (
     <>
-      <h2 className={`text-3xl text-center mb-4 ${artifika.className}`}>Select day to make a reservation</h2>
+      <h2 className={`text-3xl text-center mb-12 ${artifika.className}`}>Select day to make a reservation</h2>
       <div className='w-3/4 mx-auto rounded-xl overflow-hidden'>
         <ReactCalendar
           minDate={new Date()}

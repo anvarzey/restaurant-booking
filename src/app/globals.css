@@ -185,3 +185,18 @@
   grid-auto-rows: minmax(3rem, 1fr);
   gap: 1rem;
 }
+
+.animate-fill-right:hover {
+  animation: fill-right 2s;
+  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+}
+
+@keyframes fill-right {
+  0% {
+    color: #555;
+  }
+
+  100% {
+    color: #c32f27;
+  }
+}

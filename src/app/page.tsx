@@ -27,18 +27,23 @@ export default async function Home (): Promise<ReactElement> {
     <>
       <Header />
       <main className='bg-neutral-100'>
-        <div className='flex items-center justify-between lg:pt-28 lg:px-20 h-screen'>
-          <div className={`text-9xl ${artifika.className}`}>
-            <p>Authentic</p>
-            <p>Food</p>
-            <p>& Beer</p>
+        <div className='flex items-center justify-between lg:pt-10 lg:px-20 h-screen'>
+          <div>
+            <div className={`text-9xl mb-4 ${artifika.className}`}>
+              <p>Authentic</p>
+              <p>Artisan</p>
+              <p>Beer</p>
+            </div>
+            <p className='text-xl py-1 '>
+              Have a nice time with your friends and <span className='border-b-2 border-primary font-medium'>keep up the beers 🍻</span>
+            </p>
           </div>
-          <div className='relative h-80 w-80 px-8  rounded-xl'>
+          <div className='relative h-96 w-96 px-8 border-2 border-neutral-700 rotate-45 rounded-xl bg-neutral-50 shadow-md'>
             <Image
               src='https://res.cloudinary.com/dfyxdowwb/image/upload/v1690632846/restaurant-booking/beers/lager_g8dmrj.png'
               alt='Beer'
               fill
-              className='object-cover h-full'
+              className='object-cover h-full p-8 -rotate-45 drop-shadow-xl'
             />
           </div>
         </div>
@@ -52,9 +57,9 @@ export default async function Home (): Promise<ReactElement> {
                 If ham is good for family, beer is good for your mood. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos similique iusto sint numquam explicabo quae?
               </p>
             </div>
-            <div className='h-80 w-80 relative shadow-xl'>
+            <div className='h-96 w-80 relative border  border-neutral-200 rounded-xl shadow-2xl scale-105'>
               <Image
-                src='https://res.cloudinary.com/dfyxdowwb/image/upload/c_scale,q_auto:best,w_600/v1690632789/restaurant-booking/desserts/brownie_cv3l6k.webp'
+                src='https://res.cloudinary.com/dfyxdowwb/image/upload/q_auto:best/v1690652525/restaurant-booking/pizzas/700-700-masri_pkrdom_jhnhyw.webp'
                 alt='Photo'
                 fill
                 className='object-cover h-full rounded-xl'
@@ -122,10 +127,10 @@ export default async function Home (): Promise<ReactElement> {
                   Be the first to notice our Limited-Time Offers & get exclusive promos
                 </p>
               </div>
-              <div className='flex items-center gap-4 border-b-2 border-neutral-800 py-4'>
-                <input type='text' placeholder='Enter your email address' className='grow outline-none bg-transparent text-lg' />
-                <button className='h-8 w-8'>
-                  <AiOutlineArrowRight className='h-full w-auto' />
+              <div className='flex items-center'>
+                <input type='text' placeholder='Enter your email address' className='grow peer outline-none bg-transparent text-lg py-4 px-3 border-2 border-t-transparent border-s-transparent border-e-0 border-neutral-700 focus:border-primary focus:rounded-s-xl' />
+                <button className='h-full w-12 animate-fill-right border-2 border-neutral-700 rounded-r-xl peer-focus:border-primary peer-focus:rounded-e-xl'>
+                  <AiOutlineArrowRight className='h-full w-auto py-4 px-2' />
                 </button>
               </div>
             </div>
