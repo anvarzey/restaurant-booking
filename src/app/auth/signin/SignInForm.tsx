@@ -15,11 +15,12 @@ export default function SignInForm (): ReactElement {
 
   const onSubmit = async (values: FieldValues): Promise<void> => {
     const { email, password } = values
+    console.log({ email, password })
     await signIn('credentials', { email, password, callbackUrl: 'http://localhost:3000' })
   }
   return (
     <form
-      onSubmit={() => handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       className='grow flex flex-col justify-around'
     >
       <div className='flex flex-col gap-6'>
