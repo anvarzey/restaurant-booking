@@ -16,7 +16,7 @@ export default async function RootLayout ({
 }): Promise<ReactElement> {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={`bg-neutral-100 ${inter.className}`}>
         <Providers>
           {children}
         </Providers>

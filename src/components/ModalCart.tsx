@@ -5,17 +5,19 @@ import {
   ReactElement,
   useState
 } from 'react'
+import { artifika } from '~/utils/fonts'
+import Button from './Button'
+import { shallow } from 'zustand/shallow'
+import { BiSolidMinusCircle } from 'react-icons/bi'
 import { HiOutlinePencilSquare } from 'react-icons/hi2'
 import { VscChromeClose } from 'react-icons/vsc'
 import useCartStore from '~/lib/zustand/store'
-import { shallow } from 'zustand/shallow'
-import { artifika } from '~/utils/fonts'
 import formatPrice from '~/utils/formatPrice'
-import Button from './Button'
 
 export default function ModalCart (): ReactElement {
   const { items, subtotal, total, totalQuantity } = useCartStore(state => ({ items: state.items, subtotal: state.subtotal, total: state.total, totalQuantity: state.totalQuantity }), shallow)
   const reset = useCartStore(state => state.reset)
+  const remove = useCartStore(state => state.remove)
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = (): void => {
@@ -56,13 +58,18 @@ export default function ModalCart (): ReactElement {
                 items.length >= 1
                 ? items.map((item, i) => (
                   <li key={i} className='flex items-center gap-4'>
-                    <div className='relative h-20 w-20'>
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className='object-contain'
-                      />
+                    <div className='flex items-center'>
+                      <button className='h-4 w-4' onClick={() => remove(item.id)}>
+                        <BiSolidMinusCircle className='h-full w-auto text-primary' />
+                      </button>
+                      <div className='relative h-20 w-20'>
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className='object-contain'
+                        />
+                      </div>
                     </div>
                     <div className={`grow ${artifika.className}`}>
                       {item.name}
@@ -88,7 +95,7 @@ export default function ModalCart (): ReactElement {
             <div>Total</div>
             <div>{formatPrice(total)}</div>
           </div>
-          <Button variant='outline'>
+          <Button link href='/checkout' variant='outline'>
             Checkout & Book your seat
           </Button>
         </div>

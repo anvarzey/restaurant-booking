@@ -10,8 +10,8 @@ export default async function page (): Promise<ReactElement> {
   return (
     <>
       <Header />
-      <main className='h-screen bg-neutral-100'>
-        <div className='lg:pt-28 lg:px-20'>
+      <main className='min-h-screen bg-neutral-100'>
+        <div className='lg:pt-28 lg:px-20 lg:pb-10'>
           <Booking closedDays={formattedClosedDays} />
         </div>
       </main>

@@ -3,6 +3,7 @@ import { times } from '~/utils/times'
 import useSWR from 'swr'
 import { isAfter, isBefore, parse } from 'date-fns'
 import { artifika } from '~/utils/fonts'
+import Spinner from './Spinner'
 
 interface IProps {
   date: string
@@ -24,25 +25,29 @@ export default function TimePicker ({ date, handleReset, handleTime }: IProps): 
         </button>
         <h2 className='text-lg font-semibold text-center mb-4'>Available Times</h2>
       </div>
-      <ul className='times-grid'>
-        {
-          error !== undefined
-            ? <div>An error has been occurred !</div>
-            : isLoading
-              ? <div>Loading...</div>
-              : times
-                .filter(time => isAfter(parse(time.value, 'HH:mm', new Date()), parse(data.openTime, 'HH:mm', new Date())) && isBefore(parse(time.value, 'HH:mm', new Date()), parse(data.closeTime, 'HH:mm', new Date())))
-                .map(timeInRange => (
-                  <li
-                    key={timeInRange.index}
-                    className='cursor-pointer font-bold border text-neutral-700 border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-xl flex items-center justify-center'
-                    onClick={() => handleTime(timeInRange.value)}
-                  >
-                    {timeInRange.value}
-                  </li>
-                ))
-        }
-      </ul>
+      {
+        error !== undefined
+          ? <div>An error has been occurred !</div>
+          : isLoading
+            ? (
+              <div className='flex items-center justify-center w-full'>
+                <Spinner />
+              </div>)
+            : (
+              <ul className='times-grid'>
+                {times
+                  .filter(time => isAfter(parse(time.value, 'HH:mm', new Date()), parse(data.openTime, 'HH:mm', new Date())) && isBefore(parse(time.value, 'HH:mm', new Date()), parse(data.closeTime, 'HH:mm', new Date())))
+                  .map(timeInRange => (
+                    <li
+                      key={timeInRange.index}
+                      className='cursor-pointer font-bold border text-neutral-700 border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-xl flex items-center justify-center'
+                      onClick={() => handleTime(timeInRange.value)}
+                    >
+                      {timeInRange.value}
+                    </li>
+                  ))}
+              </ul>)
+      }
     </div>
   )
 }

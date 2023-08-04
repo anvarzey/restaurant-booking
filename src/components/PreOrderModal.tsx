@@ -38,7 +38,7 @@ export default function PreOrderModal ({ handlePreOrder }: { handlePreOrder: (va
                     </Button>
                   </div>
                   <div>
-                    <Button variant='filled'>
+                    <Button link href='/checkout' variant='filled'>
                       Go to Checkout
                     </Button>
                   </div>

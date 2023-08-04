@@ -15,7 +15,9 @@ export default function page ({ searchParams }: { searchParams: { [key: string]:
       <main className='bg-neutral-100 lg:gap-4 lg:px-20 lg:pt-28 lg:pb-8'>
         <h2 className={`text-4xl text-center ${artifika.className}`}>Menu</h2>
         {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-        {ModalCart && <ModalCart />}
+        {ModalCart !== null
+          ? <ModalCart />
+          : <div className='h-8 lg:h-24 content-[""]' />}
         <div className='flex gap-8'>
           <Filters page='menu' />
           <Products searchParams={searchParams} />

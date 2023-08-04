@@ -23,7 +23,7 @@ export default function Cart (): ReactElement {
         <div>{formatPrice(total)}</div>
       </div>
       <div>
-        <Button variant='filled'>
+        <Button link href='/checkout' variant='filled'>
           Go to Checkout
         </Button>
       </div>

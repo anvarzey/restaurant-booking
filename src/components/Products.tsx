@@ -3,6 +3,7 @@
 import { ReactElement } from 'react'
 import useSWR from 'swr'
 import Product from '~/components/Product'
+import Skeleton from './Skeleton'
 
 interface IProps {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -20,20 +21,30 @@ export default function Products ({ searchParams }: IProps): ReactElement {
 
   return (
     <div className='grow'>
-      {
-        error !== undefined
-          ? <div>An error has been occurred</div>
-          : isLoading
-            ? <div>Loading...</div>
-            : (
-              <ul className='custom-grid'>
-                {
-                  data?.map((product, i) => (
-                    <Product key={i} product={product} />
-                  ))
-                }
-              </ul>)
-      }
+      <ul className='custom-grid'>
+        {
+          error !== undefined
+            ? <div>An error has been occurred</div>
+            : isLoading
+              ? (
+                <>
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                </>)
+              : (
+                <>
+                  {
+                    data?.map((product, i) => (
+                      <Product key={i} product={product} />
+                    ))
+                  }
+                </>)
+        }
+      </ul>
     </div>
   )
 }

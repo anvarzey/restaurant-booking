@@ -65,7 +65,7 @@ export default async function Home (): Promise<ReactElement> {
         <div className='h-screen'>
           <div className='lg:px-20'>
             <div>
-              <ul className='flex items-center justify-between border-b border-neutral-800 py-8'>
+              <ul className='flex items-center justify-between py-8'>
                 {
                   steps.map((step, i) => (
                     <li key={i} className='w-1/6'>
@@ -77,6 +77,11 @@ export default async function Home (): Promise<ReactElement> {
                   ))
                 }
               </ul>
+              <div className='border-b-2 border-neutral-700 relative'>
+                <div className='absolute top-full -translate-y-1/2 h-3 w-3 content-[""] rounded-xl bg-primary' />
+                <div className='absolute top-full -translate-y-1/2 left-1/2 h-3 w-3 content-[""] rounded-xl bg-primary' />
+                <div className='absolute top-full -translate-y-1/2 right-0 h-3 w-3 content-[""] rounded-xl bg-primary' />
+              </div>
               <ul className='flex items-start justify-between py-8'>
                 {
                   steps.map((step, i) => (
