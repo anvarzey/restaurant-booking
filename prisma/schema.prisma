@@ -38,16 +38,17 @@ model Session {
 }
 
 model User {
-  id              String         @id @default(auto()) @map("_id") @db.ObjectId
-  name            String?
-  email           String?        @unique
-  emailVerified   DateTime?
-  passwordHashed  String
-  image           String?
-  role            Role           @default(USER)
-  accounts        Account[]
-  sessions        Session[]
-  reservations    Reservation[]
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?        @unique
+  emailVerified    DateTime?
+  passwordHashed   String
+  image            String?
+  role             Role           @default(USER)
+  accounts         Account[]
+  sessions         Session[]
+  reservations     Reservation[]
+  reservationsIds  String[]       @db.ObjectId  @default([])
 }
 
 model VerificationToken {
@@ -82,11 +83,11 @@ model Product {
 }
 
 model Reservation {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  dateTime        DateTime
   numberOfPeople  Int
-  date            DateTime
-  client          User      @relation(fields: [clientId], references: [id])
-  clientId        String    @db.ObjectId
+  client          User       @relation(fields: [clientId], references: [id])
+  clientId        String     @db.ObjectId
   preOrder        PreOrder?
 }
 

@@ -21,7 +21,7 @@ export const POST = async (req: Request): Promise<NextResponse> => {
     return NextResponse.json({ message: 'User does not exist' }, { status: 404 })
   }
 
-  const canLogIn = await bcrypt.compare(password, user.password)
+  const canLogIn = await bcrypt.compare(password, user.passwordHashed)
 
   if (!canLogIn) {
     return NextResponse.json({ message: 'Email or password incorrect' }, { status: 400 })
