@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import useCartStore from '~/lib/zustand/store'
 import CartItem from './CartItem'
 import { artifika } from '~/utils/fonts'
-import Button from './Button'
+import Button from '../shared/Button'
 import formatPrice from '~/utils/formatPrice'
 
 export default function Cart (): ReactElement {

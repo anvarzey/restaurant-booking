@@ -4,10 +4,10 @@ import {
   ReactElement
 } from 'react'
 import useSWR from 'swr'
-import Product from './Product'
+import Product from '../shared/Product'
 import Cart from './Cart'
 import { artifika } from '~/utils/fonts'
-import Skeleton from './Skeleton'
+import Skeleton from '../shared/Skeleton'
 
 export default function WithPreOrder (): ReactElement {
   const { data, error, isLoading } = useSWR('/api/menu')

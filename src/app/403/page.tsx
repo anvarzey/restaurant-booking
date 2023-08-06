@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import Button from '~/components/Button'
+import Button from '~/components/shared/Button'
 
 export default function page (): ReactElement {
   return (

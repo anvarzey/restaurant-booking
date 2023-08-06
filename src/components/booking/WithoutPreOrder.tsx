@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactElement } from 'react'
-import Button from './Button'
+import Button from '../shared/Button'
 import formatDateTime from '~/utils/formatDateTime'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'

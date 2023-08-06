@@ -3,7 +3,7 @@ import { times } from '~/utils/times'
 import useSWR from 'swr'
 import { isAfter, isBefore, parse } from 'date-fns'
 import { artifika } from '~/utils/fonts'
-import Spinner from './Spinner'
+import Spinner from '../shared/Spinner'
 
 interface IProps {
   date: string

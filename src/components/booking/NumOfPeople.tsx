@@ -1,7 +1,7 @@
 'use client'
 
 import { ChangeEvent, ReactElement, useState } from 'react'
-import Button from './Button'
+import Button from '../shared/Button'
 import { artifika } from '~/utils/fonts'
 
 interface IProps {

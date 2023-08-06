@@ -1,10 +1,9 @@
-// import Link from 'next/link'
 import { ReactElement } from 'react'
 import { artifika } from '~/utils/fonts'
-import Header from '~/components/Header'
-import Footer from '~/components/Footer'
+import Header from '~/components/shared/Header'
+import Footer from '~/components/shared/Footer'
 import Image from 'next/image'
-import Carrousel from '~/components/Carrousel'
+import Carrousel from '~/components/home/Carrousel'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { VscDebugBreakpointFunction } from 'react-icons/vsc'
 

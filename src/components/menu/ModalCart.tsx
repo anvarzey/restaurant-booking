@@ -6,7 +6,7 @@ import {
   useState
 } from 'react'
 import { artifika } from '~/utils/fonts'
-import Button from './Button'
+import Button from '../shared/Button'
 import { shallow } from 'zustand/shallow'
 import { BiSolidMinusCircle } from 'react-icons/bi'
 import { HiOutlinePencilSquare } from 'react-icons/hi2'

@@ -1,12 +1,12 @@
 import { ReactElement } from 'react'
-import Footer from '~/components/Footer'
-import Header from '~/components/Header'
-import Filters from './Filters'
-import Products from '~/components/Products'
+import Footer from '~/components/shared/Footer'
+import Header from '~/components/shared/Header'
+import Filters from '~/components/menu/Filters'
+import Products from '~/components/shared/Products'
 import { artifika } from '~/utils/fonts'
 import dynamic from 'next/dynamic'
 
-const ModalCart = dynamic(async () => await import('~/components/ModalCart'), { ssr: false })
+const ModalCart = dynamic(async () => await import('~/components/menu/ModalCart'), { ssr: false })
 
 export default function page ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }): ReactElement {
   return (

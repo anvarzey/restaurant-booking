@@ -2,7 +2,7 @@
 
 import { ReactElement } from 'react'
 import useSWR from 'swr'
-import Product from '~/components/Product'
+import Product from '~/components/shared/Product'
 import Skeleton from './Skeleton'
 
 interface IProps {

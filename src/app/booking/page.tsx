@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import Booking from '~/components/Booking'
-import Footer from '~/components/Footer'
-import Header from '~/components/Header'
+import Booking from '~/components/booking/Booking'
+import Footer from '~/components/shared/Footer'
+import Header from '~/components/shared/Header'
 import { prisma } from '~/lib/prisma'
 
 export default async function page (): Promise<ReactElement> {

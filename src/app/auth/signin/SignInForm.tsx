@@ -3,7 +3,7 @@
 import { signIn } from 'next-auth/react'
 import { ReactElement } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
-import Button from '~/components/Button'
+import Button from '~/components/shared/Button'
 
 export default function SignInForm (): ReactElement {
   const { register, handleSubmit, formState: { errors } } = useForm({

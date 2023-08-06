@@ -2,7 +2,7 @@
 
 import { ReactElement } from 'react'
 import { PRE_ORDER } from './Booking'
-import Button from './Button'
+import Button from '../shared/Button'
 import useCartStore from '~/lib/zustand/store'
 
 export default function PreOrderModal ({ handlePreOrder }: { handlePreOrder: (value: PRE_ORDER) => void }): ReactElement {

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
-import Button from '~/components/Button'
+import Button from '~/components/shared/Button'
 
 interface IFormValues {
   name: string
