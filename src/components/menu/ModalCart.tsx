@@ -13,12 +13,14 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2'
 import { VscChromeClose } from 'react-icons/vsc'
 import useCartStore from '~/lib/zustand/store'
 import formatPrice from '~/utils/formatPrice'
+import { useRouter } from 'next/navigation'
 
 export default function ModalCart (): ReactElement {
   const { items, subtotal, total, totalQuantity } = useCartStore(state => ({ items: state.items, subtotal: state.subtotal, total: state.total, totalQuantity: state.totalQuantity }), shallow)
   const reset = useCartStore(state => state.reset)
   const remove = useCartStore(state => state.remove)
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
 
   const handleOpen = (): void => {
     setIsOpen(true)
@@ -26,6 +28,29 @@ export default function ModalCart (): ReactElement {
 
   const handleClose = (): void => {
     setIsOpen(false)
+  }
+
+  const handleCheckout = async (): Promise<void> => {
+    const productsList = items.map(item => {
+      return {
+        id: item.id,
+        quantity: item.quantity
+      }
+    })
+
+    const res = await fetch('/api/checkout', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(productsList)
+    })
+      .then(async (res) => await res.json())
+      .catch(e => e)
+
+    if (res.url !== undefined) {
+      await router.push(res.url)
+    }
   }
 
   return (
@@ -95,7 +120,7 @@ export default function ModalCart (): ReactElement {
             <div>Total</div>
             <div>{formatPrice(total)}</div>
           </div>
-          <Button link href='/checkout' variant='outline'>
+          <Button variant='outline' onClick={handleCheckout} disabled={items.length < 1}>
             Checkout & Book your seat
           </Button>
         </div>

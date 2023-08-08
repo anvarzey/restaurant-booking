@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactElement, useState } from 'react'
-import Calendar from '../Calendar'
+import Calendar from '../shared/Calendar'
 import PreOrderModal from './PreOrderModal'
 import TimePicker from './TimePicker'
 import WithPreOrder from './WithPreOrder'

@@ -2,9 +2,10 @@ import { ReactElement } from 'react'
 
 export default function Skeleton (): ReactElement {
   return (
-    <li className='bg-white rounded-2xl px-4 py-4 border border-neutral-300 animate-pulse'>
+    <li className='bg-white rounded-2xl px-4 py-4 border border-neutral-300 animate-pulse text-transparent' aria-label='Loading'>
       <div className='bg-neutral-300 rounded-xl content-[""] h-1/2' />
-      <div className='pt-4 flex flex-col gap-3'>
+      Loading
+      <div className='flex flex-col gap-3'>
         <div className='bg-neutral-300 rounded-xl content-[""] h-5 w-1/2' />
         <div className='flex items-center justify-between mt-2'>
           <div className='bg-neutral-300 rounded-xl content-[""] h-4 w-1/3' />

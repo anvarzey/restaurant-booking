@@ -17,7 +17,7 @@ interface IProps extends ComponentPropsWithoutRef<'button'> {
 export default function Button ({ href, link, children, onClick, variant, ...props }: IProps): ReactElement {
   const VARIANTS: IVARIANTS = {
     filled: 'bg-primary border-primary text-white',
-    outline: 'border-neutral-700 hover:border-primary hover:text-primary'
+    outline: 'border-neutral-700 hover:border-primary hover:text-primary disabled:hover:border-neutral-700 disabled:hover:text-black'
   }
 
   return (

@@ -5,19 +5,21 @@ import Footer from '~/components/shared/Footer'
 import Image from 'next/image'
 import Carrousel from '~/components/home/Carrousel'
 import { AiOutlineArrowRight } from 'react-icons/ai'
-import { VscDebugBreakpointFunction } from 'react-icons/vsc'
 
 export default async function Home (): Promise<ReactElement> {
   const steps = [
     {
+      id: 0,
       title: 'Pick a date & time',
       subtitle: 'Choose the date & time of your preference'
     },
     {
+      id: 1,
       title: 'Pre Order your food with 10% off',
       subtitle: 'You can pre order your food & beers of your preference. This step is OPTIONAL, you can order normally in our restaurant.'
     },
     {
+      id: 2,
       title: 'Come and enjoy',
       subtitle: 'Come at the time of your booking and have a nice time.'
     }
@@ -66,31 +68,44 @@ export default async function Home (): Promise<ReactElement> {
             </div>
           </div>
         </div>
-        <div className='h-screen'>
+        <div className='h-[75vh] flex items-center'>
           <div className='lg:px-20'>
             <div>
               <ul className='flex items-center justify-between py-8'>
                 {
-                  steps.map((step, i) => (
-                    <li key={i} className='w-1/6'>
-                      <div className={i === 1 ? 'font-semibold' : ''}>{step.title}</div>
-                      <div className='h-5 w-5 '>
-                        <VscDebugBreakpointFunction className='rotate-180' />
-                      </div>
+                  steps.map(step => (
+                    <li key={step.id} className='w-1/6 flex flex-col items-center'>
+                      <div className={step.id === 1 ? 'font-semibold text-center' : 'font-medium'}>{step.title}</div>
                     </li>
                   ))
                 }
               </ul>
-              <div className='border-b-2 border-neutral-700 relative'>
-                <div className='absolute top-full -translate-y-1/2 h-3 w-3 content-[""] rounded-xl bg-primary' />
-                <div className='absolute top-full -translate-y-1/2 left-1/2 h-3 w-3 content-[""] rounded-xl bg-primary' />
-                <div className='absolute top-full -translate-y-1/2 right-0 h-3 w-3 content-[""] rounded-xl bg-primary' />
+              <div className='border-b border-neutral-700 w-10/12 mx-auto relative'>
+                <div className='absolute top-1/2 -translate-y-1/2'>
+                  <span className='relative flex h-3 w-3 -top-full'>
+                    <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75' />
+                    <span className='relative inline-flex rounded-full h-3 w-3 bg-primary' />
+                  </span>
+                </div>
+                <div className='absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2'>
+                  <span className='relative flex h-3 w-3 -top-full'>
+                    <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75' />
+                    <span className='relative inline-flex rounded-full h-3 w-3 bg-primary' />
+                  </span>
+                </div>
+                <div className='absolute top-1/2 -translate-y-1/2 right-0'>
+                  <span className='relative flex h-3 w-3 -top-full'>
+                    <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75' />
+                    <span className='relative inline-flex rounded-full h-3 w-3 bg-primary' />
+                  </span>
+                </div>
+
               </div>
-              <ul className='flex items-start justify-between py-8'>
+              <ul className='flex items-start justify-between py-8 relative'>
                 {
-                  steps.map((step, i) => (
-                    <li key={i} className='w-1/6'>
-                      <p className={i === 1 ? 'font-semibold text-lg' : ''}>{step.subtitle}</p>
+                  steps.map(step => (
+                    <li key={step.id} className={step.id === 1 ? 'w-1/5' : 'w-1/6'}>
+                      <p className={`text-lg text-center ${step.id === 1 ? 'font-semibold' : 'font-medium'}`}>{step.subtitle}</p>
                     </li>
                   ))
                 }

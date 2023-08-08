@@ -80,6 +80,7 @@ model Product {
   image              String
   price              Float
   priceWithDiscount  Float
+  priceId            String
 }
 
 model Reservation {
