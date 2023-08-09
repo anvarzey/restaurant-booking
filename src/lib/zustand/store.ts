@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-interface Item {
+export interface Item {
   id: string
   name: string
   image: string

@@ -8,14 +8,14 @@ export default async function page (): Promise<ReactElement> {
   const closedDays = await prisma.closedDay.findMany()
   const formattedClosedDays = closedDays.map(closedDay => closedDay.date)
   return (
-    <>
+    <div className='h-screen flex flex-col'>
       <Header />
-      <main className='min-h-screen bg-neutral-100'>
+      <main className='grow bg-neutral-100'>
         <div className='lg:pt-28 lg:px-20 lg:pb-10'>
           <Booking closedDays={formattedClosedDays} />
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }

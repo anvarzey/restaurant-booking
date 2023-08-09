@@ -21,10 +21,9 @@ export default function NumOfPeople ({ handleNumOfPeople }: IProps): ReactElemen
     <>
       <h2 className={`text-3xl text-center mb-24 ${artifika.className}`}>How many people is the booking for?</h2>
       <div className='flex flex-col gap-6 w-1/4 mx-auto'>
-        <select name='' id='' onChange={handleChange} className='w-1/2 mx-auto appearance-none px-4 py-2 bg-neutral-200 rounded-xl text-center cursor-pointer'>
+        <select name='people-selector' id='people-selector' onChange={handleChange} className='w-1/2 mx-auto appearance-none px-4 py-2 bg-neutral-200 rounded-xl text-center cursor-pointer'>
           <option value='0'>0</option>
           <option value='1'>1</option>
-          <option value='2'>2</option>
           <option value='2'>2</option>
           <option value='3'>3</option>
           <option value='4'>4</option>

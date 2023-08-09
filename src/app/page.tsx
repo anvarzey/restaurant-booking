@@ -143,7 +143,7 @@ export default async function Home (): Promise<ReactElement> {
               </div>
               <div className='flex items-center'>
                 <input type='text' placeholder='Enter your email address' className='grow peer outline-none bg-transparent text-lg py-4 px-3 border-2 border-t-transparent border-s-transparent border-e-0 border-neutral-700 focus:border-primary focus:rounded-s-xl' />
-                <button className='h-full w-12 animate-fill-right border-2 border-neutral-700 rounded-r-xl peer-focus:border-primary peer-focus:rounded-e-xl'>
+                <button className='h-full w-12 hover:text-primary border-2 border-neutral-700 rounded-r-xl peer-focus:border-primary peer-focus:rounded-e-xl'>
                   <AiOutlineArrowRight className='h-full w-auto py-4 px-2' />
                 </button>
               </div>

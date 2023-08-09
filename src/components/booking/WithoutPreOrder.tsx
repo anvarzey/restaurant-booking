@@ -1,10 +1,11 @@
 'use client'
 
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import Button from '../shared/Button'
 import formatDateTime from '~/utils/formatDateTime'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
+import Modal from './Modal'
 
 interface ISession extends Session {
   id: string
@@ -18,8 +19,14 @@ interface IProps {
   handleReset: () => void
 }
 
+interface IStatus {
+  type: string
+  message: string
+}
+
 export default function WithoutPreOrder ({ date, handleReset, time, numberOfPeople }: IProps): ReactElement {
   const { data: session }: { data: ISession } = useSession()
+  const [status, setStatus] = useState<IStatus | undefined>(undefined)
 
   const handleClick = async (): Promise<void> => {
     const dateTime = formatDateTime({ date, time })
@@ -38,7 +45,17 @@ export default function WithoutPreOrder ({ date, handleReset, time, numberOfPeop
         body: JSON.stringify(data)
       }).then(async res => await res.json())
 
-      console.log(res)
+      if (res.message !== undefined) {
+        setStatus({
+          type: 'success',
+          message: res.message
+        })
+      } else {
+        setStatus({
+          type: 'error',
+          message: res.error
+        })
+      }
     }
   }
   return (
@@ -57,6 +74,10 @@ export default function WithoutPreOrder ({ date, handleReset, time, numberOfPeop
           <Button variant='filled' onClick={handleClick}>Confirm Booking</Button>
         </div>
       </div>
+      {
+        status !== undefined &&
+        (<Modal status={status.type} message={status.message} handleReset={handleReset} />)
+      }
     </div>
   )
 }

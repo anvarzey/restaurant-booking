@@ -13,14 +13,12 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2'
 import { VscChromeClose } from 'react-icons/vsc'
 import useCartStore from '~/lib/zustand/store'
 import formatPrice from '~/utils/formatPrice'
-import { useRouter } from 'next/navigation'
 
 export default function ModalCart (): ReactElement {
   const { items, subtotal, total, totalQuantity } = useCartStore(state => ({ items: state.items, subtotal: state.subtotal, total: state.total, totalQuantity: state.totalQuantity }), shallow)
   const reset = useCartStore(state => state.reset)
   const remove = useCartStore(state => state.remove)
   const [isOpen, setIsOpen] = useState(false)
-  const router = useRouter()
 
   const handleOpen = (): void => {
     setIsOpen(true)
@@ -28,29 +26,6 @@ export default function ModalCart (): ReactElement {
 
   const handleClose = (): void => {
     setIsOpen(false)
-  }
-
-  const handleCheckout = async (): Promise<void> => {
-    const productsList = items.map(item => {
-      return {
-        id: item.id,
-        quantity: item.quantity
-      }
-    })
-
-    const res = await fetch('/api/checkout', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(productsList)
-    })
-      .then(async (res) => await res.json())
-      .catch(e => e)
-
-    if (res.url !== undefined) {
-      await router.push(res.url)
-    }
   }
 
   return (
@@ -68,12 +43,12 @@ export default function ModalCart (): ReactElement {
         <div className='fixed bg-white top-0 right-0 h-screen w-2/6 p-4'>
           <div className='flex items-center justify-between mb-8'>
             <h2 className={`text-3xl ${artifika.className}`}>Cart</h2>
-            <button className='h-6 w-6' onClick={handleClose}>
+            <button className='h-6 w-6 hover:text-primary' onClick={handleClose}>
               <VscChromeClose className='h-full w-auto' />
             </button>
           </div>
-          <div>
-            <button onClick={reset}>
+          <div className='flex justify-end'>
+            <button onClick={reset} className='italic hover:text-primary'>
               Clear Order
             </button>
           </div>
@@ -107,21 +82,21 @@ export default function ModalCart (): ReactElement {
                 ))
 
                 : (
-                  <li>
+                  <li className='pt-6 font-bold'>
                     No products
                   </li>)
             }
           </ul>
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center justify-between py-2'>
             <div>Subtotal</div>
             <div>{formatPrice(subtotal)}</div>
           </div>
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center justify-between pb-4 text-lg'>
             <div>Total</div>
             <div>{formatPrice(total)}</div>
           </div>
-          <Button variant='outline' onClick={handleCheckout} disabled={items.length < 1}>
-            Checkout & Book your seat
+          <Button link variant='outline' href='/booking' disabled={items.length < 1}>
+            Book your seat & Checkout
           </Button>
         </div>
       </div>

@@ -4,9 +4,18 @@ import { ReactElement } from 'react'
 import { PRE_ORDER } from './Booking'
 import Button from '../shared/Button'
 import useCartStore from '~/lib/zustand/store'
+import { handleCheckout } from '~/services/checkout'
+import { useRouter } from 'next/navigation'
 
 export default function PreOrderModal ({ handlePreOrder }: { handlePreOrder: (value: PRE_ORDER) => void }): ReactElement {
-  const totalQuantity = useCartStore(state => state.totalQuantity)
+  const router = useRouter()
+  const { items, totalQuantity } = useCartStore(state => ({ items: state.items, totalQuantity: state.totalQuantity }))
+
+  const handleClick = async (): Promise<void> => {
+    const url = await handleCheckout(items)
+
+    await router.push(url)
+  }
   return (
     <div className=''>
       <div className='h-fit px-4 pt-2 rounded-lg'>
@@ -30,7 +39,7 @@ export default function PreOrderModal ({ handlePreOrder }: { handlePreOrder: (va
               </div>)
             : (
               <>
-                <div className='text-center'>You have {totalQuantity} in your pre-order list</div>
+                <div className='text-center'>You have {totalQuantity} products in your pre-order list</div>
                 <div className='flex items-center justify-around'>
                   <div>
                     <Button variant='outline' onClick={() => handlePreOrder(PRE_ORDER.PRE_ORDER)}>
@@ -38,7 +47,7 @@ export default function PreOrderModal ({ handlePreOrder }: { handlePreOrder: (va
                     </Button>
                   </div>
                   <div>
-                    <Button link href='/checkout' variant='filled'>
+                    <Button variant='filled' onClick={handleClick}>
                       Go to Checkout
                     </Button>
                   </div>

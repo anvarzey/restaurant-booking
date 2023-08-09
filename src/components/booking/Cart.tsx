@@ -1,12 +1,23 @@
+'use client'
+
 import { ReactElement } from 'react'
 import useCartStore from '~/lib/zustand/store'
 import CartItem from './CartItem'
 import { artifika } from '~/utils/fonts'
 import Button from '../shared/Button'
 import formatPrice from '~/utils/formatPrice'
+import { handleCheckout } from '~/services/checkout'
+import { useRouter } from 'next/navigation'
 
 export default function Cart (): ReactElement {
   const { items, total } = useCartStore(state => ({ items: state.items, total: state.total }))
+  const router = useRouter()
+
+  const handleClick = async (): Promise<void> => {
+    const url = await handleCheckout(items)
+
+    await router.push(url)
+  }
 
   return (
     <div className='bg-white rounded-xl px-4 pt-3 pb-6 border border-neutral-700 w-1/4 h-fit'>
@@ -23,7 +34,7 @@ export default function Cart (): ReactElement {
         <div>{formatPrice(total)}</div>
       </div>
       <div>
-        <Button link href='/checkout' variant='filled'>
+        <Button href='/checkout' variant='filled' onClick={handleClick} disabled={items.length < 1}>
           Go to Checkout
         </Button>
       </div>
