@@ -1,11 +1,13 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { ReactElement } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import Button from '~/components/shared/Button'
 
 export default function SignInForm (): ReactElement {
+  const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       email: '',
@@ -15,8 +17,33 @@ export default function SignInForm (): ReactElement {
 
   const onSubmit = async (values: FieldValues): Promise<void> => {
     const { email, password } = values
-    console.log({ email, password })
-    await signIn('credentials', { email, password, callbackUrl: 'http://localhost:3000' })
+
+    const res = await signIn('credentials', { email, password, redirect: false })
+    const url = new URL(res?.url ?? 'http')
+    console.log('Sign In Response => ', url)
+    // const callbackRegex = /\?callbackUrl=/
+    console.log('Search Length => ', url.search.length)
+
+    if (!url.search.length) {
+      router.push(url.href)
+    } else {
+      // if (url.search.match(callbackRegex)) {
+      //   const callbackUrl = url.search.split('=')[1].replaceAll('%3A', ':').replaceAll('%2F', '/')
+      //   router.push(callbackUrl)
+      // } else {
+      //   router.push('/')
+      // }
+      router.push('/')
+    }
+
+    /*
+      From SignIn Button => http://localhost:3000/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F
+      From Middleware => destination url
+      Error {
+        error: CredentialsSignin
+        url: null
+      }
+    */
   }
   return (
     <form

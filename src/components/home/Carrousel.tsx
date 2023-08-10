@@ -32,7 +32,7 @@ export default function Carrousel (): ReactElement {
   return (
     <div className='overflow-hidden h-4/5'>
       <ul
-        className='flex items-center gap-12 h-3/4 snap-x snap-mandatory scroll-smooth mb-4'
+        className='flex items-center gap-12 h-3/4 snap-x snap-mandatory scroll-smooth mb-8'
         style={{ transform: `translateX(-${current * 50}%)`, transition: 'transform 0.75s ease-in' }}
       >
         {

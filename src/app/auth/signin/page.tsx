@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { artifika } from '~/utils/fonts'
-import SignInForm from './SignInForm'
+import SignInForm from '~/components/auth/signin/SignInForm'
 import Link from 'next/link'
 
 export default function page (): ReactElement {

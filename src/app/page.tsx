@@ -36,7 +36,7 @@ export default async function Home (): Promise<ReactElement> {
               <p>Beer</p>
             </div>
             <p className='text-xl py-1 '>
-              Have a nice time with your friends and <span className='border-b-2 border-primary font-medium'>keep up the beers 🍻</span>
+              Have a nice time with your friends and <span className='border-b-2 border-primary font-medium'>enjoy some good beers 🍻</span>
             </p>
           </div>
           <div className='relative h-96 w-96 px-8 border-2 border-neutral-700 rotate-45 rounded-xl bg-neutral-50 shadow-md'>
@@ -68,7 +68,7 @@ export default async function Home (): Promise<ReactElement> {
             </div>
           </div>
         </div>
-        <div className='h-[75vh] flex items-center'>
+        <div className='h-[75vh] flex items-start'>
           <div className='lg:px-20'>
             <div>
               <ul className='flex items-center justify-between py-8'>
@@ -142,7 +142,11 @@ export default async function Home (): Promise<ReactElement> {
                 </p>
               </div>
               <div className='flex items-center'>
-                <input type='text' placeholder='Enter your email address' className='grow peer outline-none bg-transparent text-lg py-4 px-3 border-2 border-t-transparent border-s-transparent border-e-0 border-neutral-700 focus:border-primary focus:rounded-s-xl' />
+                <input
+                  type='text'
+                  placeholder='Enter your email address'
+                  className='grow peer outline-none bg-transparent text-lg py-4 px-3 border-2 border-e-0 rounded-s-xl border-neutral-700 focus:border-primary'
+                />
                 <button className='h-full w-12 hover:text-primary border-2 border-neutral-700 rounded-r-xl peer-focus:border-primary peer-focus:rounded-e-xl'>
                   <AiOutlineArrowRight className='h-full w-auto py-4 px-2' />
                 </button>

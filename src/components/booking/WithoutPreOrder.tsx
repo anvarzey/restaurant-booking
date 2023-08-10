@@ -2,15 +2,9 @@
 
 import { ReactElement, useState } from 'react'
 import Button from '../shared/Button'
-import formatDateTime from '~/utils/formatDateTime'
 import { useSession } from 'next-auth/react'
-import { Session } from 'next-auth'
 import Modal from './Modal'
-
-interface ISession extends Session {
-  id: string
-  role: string
-}
+import { handleBooking } from '~/services/booking'
 
 interface IProps {
   date: string
@@ -25,38 +19,15 @@ interface IStatus {
 }
 
 export default function WithoutPreOrder ({ date, handleReset, time, numberOfPeople }: IProps): ReactElement {
-  const { data: session }: { data: ISession } = useSession()
+  const { data: session } = useSession()
   const [status, setStatus] = useState<IStatus | undefined>(undefined)
 
   const handleClick = async (): Promise<void> => {
-    const dateTime = formatDateTime({ date, time })
-    const data = {
-      id: session?.user?.id,
-      dateTime,
-      numberOfPeople,
-      preOrder: null
+    if (session === null) {
+      return
     }
-    if (dateTime !== null) {
-      const res = await fetch('/api/booking', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }).then(async res => await res.json())
-
-      if (res.message !== undefined) {
-        setStatus({
-          type: 'success',
-          message: res.message
-        })
-      } else {
-        setStatus({
-          type: 'error',
-          message: res.error
-        })
-      }
-    }
+    const res = await handleBooking({ date, numberOfPeople, time, userId: session.user.id })
+    setStatus(res)
   }
   return (
     <div>

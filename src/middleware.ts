@@ -8,10 +8,13 @@ async function middleware (req: NextRequest): Promise<NextResponse> {
   const url = req.nextUrl.clone()
 
   if (pathname.startsWith('/admin')) {
-    if (token?.role === 'ADMIN') {
+    if (!token) {
+      url.pathname = '/auth/signin'
+    } else if (token?.role === 'ADMIN') {
       return NextResponse.next()
+    } else {
+      url.pathname = '/403'
     }
-    url.pathname = '/403'
     return NextResponse.rewrite(url)
   } else if (pathname.startsWith('/booking')) {
     if (token !== null) {
