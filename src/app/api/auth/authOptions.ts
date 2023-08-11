@@ -4,7 +4,7 @@ import { prisma } from '~/lib/prisma'
 import bcrypt from 'bcrypt'
 import { Session, SessionStrategy } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
-import { User } from '@prisma/client'
+import type { IUser } from '~/types/types'
 
 const authOptions = {
   session: {
@@ -57,7 +57,7 @@ const authOptions = {
     })
   ],
   callbacks: {
-    async jwt ({ token, user }: { token: JWT, user: User | null }) {
+    async jwt ({ token, user }: { token: JWT, user: IUser | null }) {
       if (user) {
         token.id = user.id
         token.role = user.role
