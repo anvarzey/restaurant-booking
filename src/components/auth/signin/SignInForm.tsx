@@ -1,12 +1,14 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { ReactElement } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import Button from '~/components/shared/Button'
+import Spinner from '~/components/shared/Spinner'
+import useSignIn from '~/hooks/useSignIn'
 
 export default function SignInForm (): ReactElement {
+  const { error, isLoading, handleSignIn } = useSignIn()
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -18,22 +20,13 @@ export default function SignInForm (): ReactElement {
   const onSubmit = async (values: FieldValues): Promise<void> => {
     const { email, password } = values
 
-    const res = await signIn('credentials', { email, password, redirect: false })
-    const url = new URL(res?.url ?? 'http')
-    console.log('Sign In Response => ', url)
-    // const callbackRegex = /\?callbackUrl=/
-    console.log('Search Length => ', url.search.length)
+    const url = await handleSignIn({ email, password })
 
-    if (!url.search.length) {
-      router.push(url.href)
-    } else {
-      // if (url.search.match(callbackRegex)) {
-      //   const callbackUrl = url.search.split('=')[1].replaceAll('%3A', ':').replaceAll('%2F', '/')
-      //   router.push(callbackUrl)
-      // } else {
-      //   router.push('/')
-      // }
-      router.push('/')
+    console.log('URL Response => ', url)
+    console.log('ERROR => ', error)
+
+    if (url) {
+      router.push(url)
     }
 
     /*
@@ -45,30 +38,49 @@ export default function SignInForm (): ReactElement {
       }
     */
   }
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className='grow flex flex-col justify-around'
-    >
-      <div className='flex flex-col gap-6'>
-        <div className='flex flex-col'>
-          <label htmlFor=''>Enter your email</label>
-          <input {...register('email')} name='email' type='text' placeholder='user@email.com' className='p-2 border-b border-neutral-700' />
-          {
-            errors.email?.message !== undefined && <p className='text-red-600'>{errors.email.message}</p>
-          }
-        </div>
-        <div className='flex flex-col'>
-          <label htmlFor=''>Enter your password</label>
-          <input {...register('password')} name='password' type='password' className='p-2 border-b border-neutral-700' />
-          {
-            errors.password?.message !== undefined && <p className='text-red-600'>{errors.password.message}</p>
-          }
-        </div>
-      </div>
-      <div className=''>
-        <Button variant='filled' type='submit'>Sign In</Button>
-      </div>
-    </form>
+    <>
+      {
+        isLoading
+          ? (
+            <div className='grow flex items-center justify-center'>
+              <Spinner />
+            </div>)
+          : (
+            <>
+              {
+                error && (
+                  <div className='text-red-600 text-center font-semibold pt-2'>
+                    {error === 'CredentialsSignin' ? 'Email or password is incorrect' : 'Error when trying to log in'}
+                  </div>)
+              }
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className='grow flex flex-col justify-around'
+              >
+                <div className='flex flex-col gap-6'>
+                  <div className='flex flex-col'>
+                    <label htmlFor=''>Enter your email</label>
+                    <input {...register('email')} name='email' type='text' placeholder='user@email.com' className='p-2 border-b border-neutral-700' />
+                    {
+                      errors.email?.message !== undefined && <p className='text-red-600'>{errors.email.message}</p>
+                    }
+                  </div>
+                  <div className='flex flex-col'>
+                    <label htmlFor=''>Enter your password</label>
+                    <input {...register('password')} name='password' type='password' className='p-2 border-b border-neutral-700' />
+                    {
+                      errors.password?.message !== undefined && <p className='text-red-600'>{errors.password.message}</p>
+                    }
+                  </div>
+                </div>
+                <div className=''>
+                  <Button variant='filled' type='submit'>Sign In</Button>
+                </div>
+              </form>
+            </>)
+      }
+    </>
   )
 }

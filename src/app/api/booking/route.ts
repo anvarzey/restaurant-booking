@@ -37,11 +37,14 @@ export const POST = async (req: Request): Promise<NextResponse> => {
 
     return NextResponse.json({ message: 'OK' })
   } catch (e) {
-    if (e.name === 'PrismaClientValidationError') {
-      const errorMessage = e.message.split('\n').pop()
+    if (e instanceof Error) {
+      if (e.name === 'PrismaClientValidationError') {
+        const errorMessage = e.message.split('\n').pop()
 
-      return NextResponse.json({ error: errorMessage }, { status: 400 })
+        return NextResponse.json({ error: errorMessage }, { status: 400 })
+      }
+      return NextResponse.json({ error: 'Internal Error' }, { status: 500 })
     }
-    return NextResponse.json({ error: 'Internal Error' }, { status: 500 })
   }
+  return NextResponse.json({ error: 'Internal Error' }, { status: 500 })
 }
