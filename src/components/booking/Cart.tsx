@@ -27,7 +27,7 @@ export default function Cart (): ReactElement {
       {
         isLoading
           ? (
-            <div className='absolute h-screen w-full bg-black/20 flex items-center justify-center'>
+            <div className='fixed h-screen w- inset-0 bg-black/30 flex items-center justify-center overflow-hidden z-10'>
               <div className=''>
                 <Spinner />
               </div>

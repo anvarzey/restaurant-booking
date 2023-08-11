@@ -4,6 +4,7 @@ import { ReactElement } from 'react'
 import useSWR from 'swr'
 import Product from '~/components/shared/Product'
 import Skeleton from './Skeleton'
+import type { IProduct } from '~/types/types'
 
 interface IProps {
   searchParams: { [key: string]: string | string[] | undefined }
@@ -38,8 +39,8 @@ export default function Products ({ searchParams }: IProps): ReactElement {
               : (
                 <>
                   {
-                    data?.map((product, i) => (
-                      <Product key={i} product={product} />
+                    data?.map((product: IProduct) => (
+                      <Product key={product.id} product={product} />
                     ))
                   }
                 </>)

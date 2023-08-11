@@ -8,16 +8,10 @@ import {
 import useCartStore from '~/lib/zustand/store'
 import { artifika } from '~/utils/fonts'
 import formatPrice from '~/utils/formatPrice'
+import type { IProduct } from '~/types/types'
 
 interface IProps {
-  product: {
-    id: string
-    name: string
-    category: string
-    image: string
-    price: number
-    priceWithDiscount: number
-  }
+  product: IProduct
 }
 
 export default function Product ({ product }: IProps): ReactElement {
