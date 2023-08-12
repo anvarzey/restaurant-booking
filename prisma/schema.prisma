@@ -30,11 +30,11 @@ model Account {
 }
 
 model Session {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  sessionToken String    @unique
-  userId       String    @db.ObjectId 
-  expires      DateTime  
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken  String    @unique
+  userId        String    @db.ObjectId 
+  expires       DateTime  
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
@@ -89,7 +89,7 @@ model Reservation {
   numberOfPeople  Int
   client          User       @relation(fields: [clientId], references: [id])
   clientId        String     @db.ObjectId
-  preOrder        PreOrder?
+  order           Order?
 }
 
 enum Role {
@@ -97,12 +97,12 @@ enum Role {
   USER 
 }
 
-type PreOrder {
-  items  PreOrderItem[]
+type Order {
+  items  OrderItem[]
   price  Float
 }
 
-type PreOrderItem {
-  id                 String  @db.ObjectId
-  quantity           Int
+type OrderItem {
+  id        String  @db.ObjectId
+  quantity  Int
 }
