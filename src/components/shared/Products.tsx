@@ -4,7 +4,7 @@ import { ReactElement } from 'react'
 import useSWR from 'swr'
 import Product from '~/components/shared/Product'
 import Skeleton from './Skeleton'
-import type { IProduct } from '~/types/types'
+import type { Product as IProduct } from '@prisma/client'
 
 interface IProps {
   searchParams: { [key: string]: string | string[] | undefined }

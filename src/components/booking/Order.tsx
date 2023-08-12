@@ -1,8 +1,8 @@
 'use client'
 
 import { ReactElement } from 'react'
-import useCartStore from '~/lib/zustand/store'
-import CartItem from './CartItem'
+import useOrderStore from '~/lib/zustand/store'
+import OrderItem from './OrderItem'
 import { artifika } from '~/utils/fonts'
 import Button from '../shared/Button'
 import formatPrice from '~/utils/formatPrice'
@@ -10,8 +10,8 @@ import { useRouter } from 'next/navigation'
 import useCheckout from '~/hooks/useCheckout'
 import Spinner from '../shared/Spinner'
 
-export default function Cart (): ReactElement {
-  const { items, total } = useCartStore(state => ({ items: state.items, total: state.total }))
+export default function Order (): ReactElement {
+  const { items, total } = useOrderStore(state => ({ items: state.items, total: state.total }))
   const { error, handleCheckout, isLoading, resetError } = useCheckout()
   const router = useRouter()
 
@@ -46,11 +46,11 @@ export default function Cart (): ReactElement {
             </div>)
       }
       <div className='bg-white rounded-xl px-4 pt-3 pb-6 border border-neutral-700 w-1/4 h-fit'>
-        <h4 className={`text-2xl pb-4 ${artifika.className}`}>Cart</h4>
+        <h4 className={`text-2xl pb-4 ${artifika.className}`}>Order</h4>
         <ul className='pb-8'>
           {
             items.map((item, i) => (
-              <CartItem key={i} item={item} />
+              <OrderItem key={i} item={item} />
             ))
           }
         </ul>

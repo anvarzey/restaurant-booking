@@ -18,12 +18,12 @@ jest.mock('../../../src/lib/zustand/store', () => {
     add: fakeAdd
   }
 
-  const fakeUseCartStore = (fn: any): any => {
+  const fakeUseOrderStore = (fn: any): any => {
     return fn(fakeState)
   }
 
-  const useCartStore = fakeUseCartStore
-  return useCartStore
+  const useOrderStore = fakeUseOrderStore
+  return useOrderStore
 })
 
 describe('Product', () => {

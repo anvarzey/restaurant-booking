@@ -11,7 +11,7 @@ const formatDateTime = ({ date, time }: IProps): Date | null => {
 
   const timeArr = time.split(':').map(num => Number(num))
 
-  const dateTime = new Date(...dateArr, ...timeArr)
+  const dateTime = new Date(dateArr[0], dateArr[1], dateArr[2], timeArr[0], timeArr[1])
   return dateTime
 }
 

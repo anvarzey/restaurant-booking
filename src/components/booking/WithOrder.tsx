@@ -5,11 +5,11 @@ import {
 } from 'react'
 import useSWR from 'swr'
 import Product from '../shared/Product'
-import Cart from './Cart'
+import Order from './Order'
 import { artifika } from '~/utils/fonts'
 import Skeleton from '../shared/Skeleton'
 
-export default function WithPreOrder (): ReactElement {
+export default function WithOrder (): ReactElement {
   const { data, error, isLoading } = useSWR('/api/menu')
 
   return (
@@ -42,7 +42,7 @@ export default function WithPreOrder (): ReactElement {
             }
           </ul>
         </div>
-        <Cart />
+        <Order />
       </div>
     </div>
   )

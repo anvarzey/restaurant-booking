@@ -1,7 +1,8 @@
 'use client'
 
 import { ChangeEventHandler, ReactElement } from 'react'
-import useCartStore from '~/lib/zustand/store'
+import { BiSolidMinusCircle } from 'react-icons/bi'
+import useOrderStore from '~/lib/zustand/store'
 
 interface Item {
   id: string
@@ -12,8 +13,8 @@ interface Item {
   priceWithDiscount: number
 }
 
-export default function CartItem ({ item }: { item: Item }): ReactElement {
-  const update = useCartStore(state => state.update)
+export default function OrderItem ({ item }: { item: Item }): ReactElement {
+  const { remove, update } = useOrderStore((state) => ({ remove: state.remove, update: state.update }))
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const id = item.id
@@ -22,7 +23,10 @@ export default function CartItem ({ item }: { item: Item }): ReactElement {
   }
   return (
     <li className='flex items-center justify-between'>
-      <div className='text-lg'>{item.name}</div>
+      <button className='h-4 w-4' onClick={() => remove(item.id)}>
+        <BiSolidMinusCircle className='h-full w-auto text-primary' />
+      </button>
+      <div className='text-lg truncate'>{item.name}</div>
       <div>
         <span>x</span>
         <select

@@ -2,10 +2,10 @@
 
 import Image from 'next/image'
 import { ReactElement } from 'react'
-import useCartStore from '~/lib/zustand/store'
+import useOrderStore from '~/lib/zustand/store'
 
 export default function BookingInfo (): ReactElement {
-  const items = useCartStore(state => state.items)
+  const items = useOrderStore(state => state.items)
   return (
     <>
       {

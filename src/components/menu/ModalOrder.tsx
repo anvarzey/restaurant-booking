@@ -11,13 +11,13 @@ import { shallow } from 'zustand/shallow'
 import { BiSolidMinusCircle } from 'react-icons/bi'
 import { HiOutlinePencilSquare } from 'react-icons/hi2'
 import { VscChromeClose } from 'react-icons/vsc'
-import useCartStore from '~/lib/zustand/store'
+import useOrderStore from '~/lib/zustand/store'
 import formatPrice from '~/utils/formatPrice'
 
-export default function ModalCart (): ReactElement {
-  const { items, subtotal, total, totalQuantity } = useCartStore(state => ({ items: state.items, subtotal: state.subtotal, total: state.total, totalQuantity: state.totalQuantity }), shallow)
-  const reset = useCartStore(state => state.reset)
-  const remove = useCartStore(state => state.remove)
+export default function ModalOrder (): ReactElement {
+  const { items, subtotal, total, totalQuantity } = useOrderStore((state) => ({ items: state.items, subtotal: state.subtotal, total: state.total, totalQuantity: state.totalQuantity }), shallow)
+  const reset = useOrderStore(state => state.reset)
+  const remove = useOrderStore(state => state.remove)
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpen = (): void => {
@@ -42,7 +42,7 @@ export default function ModalCart (): ReactElement {
         <div className={`fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity ${isOpen ? '' : 'hidden'}`} />
         <div className='fixed bg-white top-0 right-0 h-screen w-2/6 p-4'>
           <div className='flex items-center justify-between mb-8'>
-            <h2 className={`text-3xl ${artifika.className}`}>Cart</h2>
+            <h2 className={`text-3xl ${artifika.className}`}>Order</h2>
             <button className='h-6 w-6 hover:text-primary' onClick={handleClose}>
               <VscChromeClose className='h-full w-auto' />
             </button>

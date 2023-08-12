@@ -5,7 +5,7 @@ import {
   ReactElement,
   useState
 } from 'react'
-import useCartStore from '~/lib/zustand/store'
+import useOrderStore from '~/lib/zustand/store'
 import { artifika } from '~/utils/fonts'
 import formatPrice from '~/utils/formatPrice'
 import type { IProduct } from '~/types/types'
@@ -16,7 +16,7 @@ interface IProps {
 
 export default function Product ({ product }: IProps): ReactElement {
   const [quant, setQuant] = useState(0)
-  const add = useCartStore(state => state.add)
+  const add = useOrderStore(state => state.add)
   const formattedPrice = formatPrice(product.price)
   const formattedPriceWithDiscount = formatPrice(product.priceWithDiscount)
 
@@ -77,7 +77,7 @@ export default function Product ({ product }: IProps): ReactElement {
             disabled={quant <= 0}
             className='w-full cursor-pointer py-1 rounded-e-xl bg-primary border border-primary text-white disabled:opacity-50 disabled:cursor-default'
           >
-            Add to cart
+            Add to order
           </button>
         </div>
       </div>

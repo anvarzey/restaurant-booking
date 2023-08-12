@@ -10,7 +10,7 @@ export interface Item {
   priceWithDiscount: number
 }
 
-interface CartState {
+interface OrderState {
   items: Item[]
   subtotal: number
   total: number
@@ -21,7 +21,7 @@ interface CartState {
   reset: () => void
 }
 
-const useCartStore = create<CartState>()(
+const useOrderStore = create<OrderState>()(
   devtools(
     persist(
       (set, get) => ({
@@ -30,35 +30,35 @@ const useCartStore = create<CartState>()(
         total: 0,
         totalQuantity: 0,
         add: (item) => {
-          const cartItems = get().items
-          const updated = cartItems.findIndex(cartItem => cartItem.id === item.id)
+          const orderItems = get().items
+          const updated = orderItems.findIndex(orderItem => orderItem.id === item.id)
           if (updated >= 0) {
-            cartItems[updated].quantity += item.quantity
+            orderItems[updated].quantity += item.quantity
           } else {
-            cartItems.push(item)
+            orderItems.push(item)
           }
-          const subtotal = cartItems.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
-          const total = cartItems.reduce((acc, curr) => acc + (curr.quantity * curr.priceWithDiscount), 0)
-          const totalQuantity = cartItems.reduce((acc, curr) => acc + curr.quantity, 0)
-          set((state) => ({ items: cartItems, subtotal, total, totalQuantity }))
+          const subtotal = orderItems.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
+          const total = orderItems.reduce((acc, curr) => acc + (curr.quantity * curr.priceWithDiscount), 0)
+          const totalQuantity = orderItems.reduce((acc, curr) => acc + curr.quantity, 0)
+          set((state) => ({ items: orderItems, subtotal, total, totalQuantity }))
         },
         update: (id, quantity) => {
-          const cartItems = get().items
-          const updated = cartItems.findIndex(cartItem => cartItem.id === id)
+          const orderItems = get().items
+          const updated = orderItems.findIndex(orderItem => orderItem.id === id)
           if (updated !== undefined) {
             // updated.quantity = quantity
-            // const updatedCartItems = [...cartItems, updated]
-            cartItems[updated].quantity = quantity
-            const subtotal = cartItems.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
-            const total = cartItems.reduce((acc, curr) => acc + (curr.quantity * curr.priceWithDiscount), 0)
-            const totalQuantity = cartItems.reduce((acc, curr) => acc + curr.quantity, 0)
+            // const updatedOrderItems = [...orderItems, updated]
+            orderItems[updated].quantity = quantity
+            const subtotal = orderItems.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
+            const total = orderItems.reduce((acc, curr) => acc + (curr.quantity * curr.priceWithDiscount), 0)
+            const totalQuantity = orderItems.reduce((acc, curr) => acc + curr.quantity, 0)
 
-            set((state) => ({ items: cartItems, subtotal, total, totalQuantity }))
+            set((state) => ({ items: orderItems, subtotal, total, totalQuantity }))
           }
         },
         remove: (id) => {
-          const cartItems = get().items
-          const updatedItems = cartItems.filter(cartItem => cartItem.id !== id)
+          const orderItems = get().items
+          const updatedItems = orderItems.filter(orderItem => orderItem.id !== id)
 
           const subtotal = updatedItems.reduce((acc, curr) => acc + (curr.quantity * curr.price), 0)
           const total = updatedItems.reduce((acc, curr) => acc + (curr.quantity * curr.priceWithDiscount), 0)
@@ -71,10 +71,10 @@ const useCartStore = create<CartState>()(
         }
       }),
       {
-        name: 'cart-storage'
+        name: 'order-storage'
       }
     )
   )
 )
 
-export default useCartStore
+export default useOrderStore

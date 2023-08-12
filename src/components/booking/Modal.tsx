@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import Button from '../shared/Button'
 import { artifika } from '~/utils/fonts'
-import { BOOKING_STATUS } from './WithoutPreOrder'
+import { BOOKING_STATUS } from './WithoutOrder'
 
 interface IProps {
   status: BOOKING_STATUS

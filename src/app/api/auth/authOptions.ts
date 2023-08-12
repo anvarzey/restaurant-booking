@@ -4,7 +4,11 @@ import { prisma } from '~/lib/prisma'
 import bcrypt from 'bcrypt'
 import { Session, SessionStrategy } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
-import type { IUser } from '~/types/types'
+import type { User } from 'next-auth'
+
+interface IUser extends User {
+  role?: string
+}
 
 const authOptions = {
   session: {

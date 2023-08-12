@@ -19,7 +19,7 @@ export enum BOOKING_STATUS {
   ERROR = 'error'
 }
 
-export default function WithoutPreOrder ({ date, handleReset, time, numberOfPeople }: IProps): ReactElement {
+export default function WithoutOrder ({ date, handleReset, time, numberOfPeople }: IProps): ReactElement {
   const { data: session } = useSession()
   const [success, setSuccess] = useState<string | null>(null)
   const { isLoading, error, handleBooking } = useBooking()

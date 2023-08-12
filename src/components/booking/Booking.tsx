@@ -2,24 +2,24 @@
 
 import { ReactElement, useState } from 'react'
 import Calendar from '../shared/Calendar'
-import PreOrderModal from './PreOrderModal'
+import OrderModal from './OrderModal'
 import TimePicker from './TimePicker'
-import WithPreOrder from './WithPreOrder'
-import WithoutPreOrder from './WithoutPreOrder'
+import WithOrder from './WithOrder'
+import WithoutOrder from './WithoutOrder'
 import format from 'date-fns/format'
 import NumOfPeople from './NumOfPeople'
 
-export enum PRE_ORDER {
-  NOT_PRE_ORDER = -1,
+export enum ORDER {
+  NOT_ORDER = -1,
   NOT_CONFIRMED = 0,
-  PRE_ORDER = 1
+  ORDER = 1
 }
 
 export default function Booking ({ closedDays }: { closedDays: string[] }): ReactElement {
   const [date, setDate] = useState<string | undefined>(undefined)
   const [time, setTime] = useState<string | undefined>(undefined)
   const [numOfPeople, setNumOfPeople] = useState(0)
-  const [preOrder, setPreOrder] = useState<PRE_ORDER>(PRE_ORDER.NOT_CONFIRMED)
+  const [order, setOrder] = useState<ORDER>(ORDER.NOT_CONFIRMED)
 
   const handleDate = (newDate: Date | undefined): void => {
     if (newDate !== undefined) {
@@ -34,14 +34,14 @@ export default function Booking ({ closedDays }: { closedDays: string[] }): Reac
     setNumOfPeople(num)
   }
 
-  const handlePreOrder = (value: PRE_ORDER): void => {
-    setPreOrder(value)
+  const handleOrder = (value: ORDER): void => {
+    setOrder(value)
   }
 
   const handleReset = (): void => {
     setDate(undefined)
     setTime(undefined)
-    setPreOrder(PRE_ORDER.NOT_CONFIRMED)
+    setOrder(ORDER.NOT_CONFIRMED)
   }
 
   const handleTime = (newTime: string): void => {
@@ -57,11 +57,11 @@ export default function Booking ({ closedDays }: { closedDays: string[] }): Reac
             ? <Calendar closedDays={closedDays} handleDate={handleDate} />
             : time === undefined
               ? <TimePicker date={date} handleTime={handleTime} handleReset={handleReset} />
-              : preOrder === PRE_ORDER.NOT_CONFIRMED
-                ? <PreOrderModal handlePreOrder={handlePreOrder} />
-                : preOrder === PRE_ORDER.PRE_ORDER
-                  ? <WithPreOrder />
-                  : <WithoutPreOrder date={date} numberOfPeople={numOfPeople} time={time} handleReset={handleReset} />
+              : order === ORDER.NOT_CONFIRMED
+                ? <OrderModal handleOrder={handleOrder} />
+                : order === ORDER.ORDER
+                  ? <WithOrder />
+                  : <WithoutOrder date={date} numberOfPeople={numOfPeople} time={time} handleReset={handleReset} />
       }
     </div>
   )
