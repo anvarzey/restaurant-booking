@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import formatDateTime from '~/utils/formatDateTime'
 
-interface IReturn {
+export interface IReturn {
   error: string | null
   handleBooking: (args: IProps) => Promise<string | null>
   isLoading: boolean
@@ -40,14 +40,14 @@ export default function useBooking (): IReturn {
 
       setIsLoading(false)
 
-      if (res.message === 'OK') {
+      if (res?.message === 'OK') {
         return res.message
       } else {
         setError(res.error ?? 'An error has been occurred')
         return null
       }
     } else {
-      setError('An error has been occurred')
+      setError('Date or Time is missing or has wrong format')
       return null
     }
   }

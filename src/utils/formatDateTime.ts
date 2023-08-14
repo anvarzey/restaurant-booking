@@ -4,7 +4,7 @@ interface IProps {
 }
 
 const formatDateTime = ({ date, time }: IProps): Date | null => {
-  if (date === undefined || time === undefined) {
+  if (date.length < 10 || time.length < 5) {
     return null
   }
   const dateArr = date.split('/').map((num, i) => i === 1 ? Number(num) - 1 : Number(num))
