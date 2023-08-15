@@ -10,7 +10,7 @@ describe('Successful response', () => {
     })) as jest.Mock
   })
 
-  it('should return OK when booking is succesfull', async () => {
+  it('should return error as null and loading as false by default', async () => {
     const { result } = renderHook(() => useBooking())
     const { error, isLoading } = result.current
 

@@ -5,15 +5,19 @@
 - Typescript
 - Prisma
 - MongoDB
-- Stripe
 - Zustand
 - Next Auth
 - Tailwindcss
 
 ### Libraries:
-- swr
-- date-fns
-- react-hook-form
-- react-calendar
-- react-icons
+- Stripe
+- SWR
+- Date-Fns
+- React-Hook-Form
+- React-Calendar
+- React-Icons
+
+### Testing(IN PROGRESS):
+- Jest
+- React-Testing-Library
 

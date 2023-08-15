@@ -19,7 +19,7 @@ export default function useSignIn (): IReturn {
     const url = new URL(res?.url ?? 'http://localhost:3000')
     // console.log('Sign In Response => ', url)
     // const callbackRegex = /\?callbackUrl=/
-    // console.log('Response => ', res)
+    console.log('Response => ', res)
     setIsLoading(false)
     if (res !== undefined) {
       if (!res.url) {

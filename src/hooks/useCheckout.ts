@@ -35,7 +35,7 @@ export default function useCheckout (): IReturn {
 
     setIsLoading(false)
 
-    if (res.url) {
+    if (res?.url) {
       return res.url
     }
     return null
