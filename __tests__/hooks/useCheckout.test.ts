@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import useCheckout from '~/hooks/useCheckout'
-import { fakeOrderItems, fakeURL } from '../utils/fakeData'
+import { fakeOrderItems, fakeURL } from '../testsUtils/fakeData'
 
 describe('Successful checkout', () => {
   beforeEach(() => {

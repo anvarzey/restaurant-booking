@@ -1,50 +1,46 @@
 import Header from '~/components/shared/Header'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import * as nextAuthReact from 'next-auth/react'
+import { fakeName } from '../../testsUtils/fakeData'
 
-let fakeData: string | { user: { name: string } } = ''
-let fakeStatus = ''
+const mockNextAuthReact = nextAuthReact as jest.Mocked<typeof nextAuthReact>
 
-jest.mock('next-auth/react', () => {
-  const fakeSignIn = jest.fn()
-  const fakeSignOut = jest.fn()
-  const fakeUseSession = jest.fn().mockImplementation(() => ({
-    data: fakeData,
-    status: fakeStatus
-  }))
-
-  return { signIn: fakeSignIn, signOut: fakeSignOut, useSession: fakeUseSession }
-})
+jest.mock('next-auth/react')
 
 describe('Header', () => {
-  it('should render', async () => {
-    await render(<Header />)
-    const homeLink = screen.getByRole('link', { name: 'Home' })
-    expect(homeLink).toBeInTheDocument()
-  })
   describe('Unauthenticated user', () => {
-    it('should render Sign In button when not signed in', async () => {
+    it('should render', async () => {
+      mockNextAuthReact.useSession.mockImplementation(() => ({
+        update: async () => await Promise.resolve(null),
+        data: null,
+        status: 'unauthenticated'
+      }))
       await render(<Header />)
-      const signInBtn = screen.getByRole('button', { name: 'Sign In' })
-      expect(signInBtn).toBeInTheDocument()
+
+      screen.getByRole('link', { name: /Home/i })
+      screen.getByRole('button', { name: /Sign In/i })
     })
   })
   describe('Authenticated user', () => {
-    const fakeName = 'FakeName'
-    beforeAll(() => {
-      fakeData = {
-        user: {
-          name: fakeName
-        }
-      }
-      fakeStatus = 'authenticated'
-    })
     it('should render user\'s name instead of sign in button', async () => {
+      mockNextAuthReact.useSession.mockImplementation(() => ({
+        update: async () => await Promise.resolve(null),
+        data: {
+          user: {
+            id: 'fakeid',
+            name: fakeName,
+            role: 'USER'
+          },
+          expires: ''
+        },
+        status: 'authenticated'
+      }))
       await render(<Header />)
-      const usersName = screen.getByText(fakeName)
-      const signInBtn = screen.queryByRole('button', { name: 'Sign In' })
 
-      expect(usersName).toBeInTheDocument()
+      screen.getByText(fakeName)
+
+      const signInBtn = screen.queryByRole('button', { name: 'Sign In' })
       expect(signInBtn).toBeNull()
     })
   })

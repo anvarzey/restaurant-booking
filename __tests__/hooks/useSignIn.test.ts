@@ -5,7 +5,7 @@ import {
   fakeErrorMessage,
   fakePassword,
   fakeURL
-} from '../utils/fakeData'
+} from '../testsUtils/fakeData'
 import * as nextAuthReact from 'next-auth/react'
 
 const mockNextAuthReact = nextAuthReact as jest.Mocked<typeof nextAuthReact>

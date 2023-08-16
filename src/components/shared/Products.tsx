@@ -24,7 +24,7 @@ export default function Products ({ searchParams }: IProps): ReactElement {
     <div className='grow'>
       <ul className='custom-grid'>
         {
-          error !== undefined
+          error
             ? <div>An error has been occurred</div>
             : isLoading
               ? (

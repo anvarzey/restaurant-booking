@@ -11,6 +11,8 @@ export const fakeOrderItems = [
   }
 ]
 
+export const fakeName = 'Fake Name'
+
 export const fakeEmail = 'fake@email.com'
 
 export const fakePassword = 'thefakepassword'

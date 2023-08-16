@@ -24,7 +24,7 @@ export default function BookingInfo (): ReactElement {
                 </li>
               ))}
             </ul>)
-          : <div>BookingInfo</div>
+          : <div>No items</div>
       }
     </>
   )
