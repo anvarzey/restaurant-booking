@@ -14,7 +14,7 @@ import { VscChromeClose } from 'react-icons/vsc'
 import useOrderStore from '~/lib/zustand/store'
 import formatPrice from '~/utils/formatPrice'
 
-export default function ModalOrder (): ReactElement {
+export default function OrderModal (): ReactElement {
   const { items, subtotal, total, totalQuantity } = useOrderStore((state) => ({ items: state.items, subtotal: state.subtotal, total: state.total, totalQuantity: state.totalQuantity }), shallow)
   const reset = useOrderStore(state => state.reset)
   const remove = useOrderStore(state => state.remove)
@@ -32,18 +32,18 @@ export default function ModalOrder (): ReactElement {
     <>
       <div className='flex justify-end lg:px-2 lg:pb-16'>
         <div className='h-8 relative'>
-          <button className='h-6 w-6' onClick={handleOpen}>
+          <button data-testid='open-modal' className='h-6 w-6' onClick={handleOpen}>
             <HiOutlinePencilSquare className='h-full w-auto' />
           </button>
           <div className='text-xs py-1 px-2 bg-primary text-white rounded-full absolute -top-3.5 -left-5 font-bold'>{totalQuantity}</div>
         </div>
       </div>
-      <div className={`relative z-10 overflow-hidden ${isOpen ? '' : 'hidden'}`} role='dialog'>
+      <div data-testid='modal-body' className={`relative z-10 overflow-hidden ${isOpen ? '' : 'hidden'}`} role='dialog'>
         <div className={`fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity ${isOpen ? '' : 'hidden'}`} />
         <div className='fixed bg-white top-0 right-0 h-screen w-2/6 p-4'>
           <div className='flex items-center justify-between mb-8'>
             <h2 className={`text-3xl ${artifika.className}`}>Order</h2>
-            <button className='h-6 w-6 hover:text-primary' onClick={handleClose}>
+            <button data-testid='close-modal' className='h-6 w-6 hover:text-primary' onClick={handleClose}>
               <VscChromeClose className='h-full w-auto' />
             </button>
           </div>
