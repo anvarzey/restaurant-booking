@@ -34,6 +34,7 @@ export default function WithoutOrder ({ date, handleReset, time, numberOfPeople 
       setSuccess(res)
     }
   }
+
   return (
     <div>
       <h2 className='text-center text-3xl font-semibold'>Confirm Date & Time</h2>
