@@ -8,7 +8,7 @@ import useCheckout from '~/hooks/useCheckout'
 import { useRouter } from 'next/navigation'
 import Spinner from '../shared/Spinner'
 
-export default function PreOrderModal ({ handleOrder }: { handleOrder: (value: ORDER) => void }): ReactElement {
+export default function OrderModal ({ handleOrder }: { handleOrder: (value: ORDER) => void }): ReactElement {
   const router = useRouter()
   const { items, totalQuantity } = useOrderStore(state => ({ items: state.items, totalQuantity: state.totalQuantity }))
   const { error, handleCheckout, isLoading, resetError } = useCheckout()

@@ -15,6 +15,6 @@ export const fakeName = 'Fake Name'
 
 export const fakeEmail = 'fake@email.com'
 
-export const fakePassword = 'thefakepassword'
-
 export const fakeErrorMessage = 'Error Message'
+
+export const fakePassword = 'thefakepassword'
