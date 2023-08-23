@@ -4,7 +4,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import useCheckout from '~/hooks/useCheckout'
 import useOrderStore from '~/lib/zustand/store'
-import { fakeErrorMessage } from '../../testsUtils/fakeData'
+import { fakeErrorMessage, initialUseCheckout, loadingUseCheckout } from '../../testsUtils/fakeData'
 
 const mockUseCheckout = useCheckout as jest.MockedFunction<typeof useCheckout>
 const mockUseOrderStore = useOrderStore as jest.MockedFunction<typeof useOrderStore>
@@ -19,12 +19,8 @@ jest.mock('next/navigation')
 
 describe('Order Modal', () => {
   it('should render correctly', async () => {
-    mockUseCheckout.mockImplementation(() => ({
-      error: null,
-      handleCheckout: jest.fn(),
-      isLoading: false,
-      resetError: jest.fn()
-    }))
+    mockUseCheckout.mockImplementation(initialUseCheckout)
+
     mockUseOrderStore.mockImplementation((fn) => {
       const mockState = {
         items: [],
@@ -39,6 +35,7 @@ describe('Order Modal', () => {
 
       return fn(mockState)
     })
+
     const mockHandleOrder = jest.fn()
     await render(<OrderModal handleOrder={mockHandleOrder} />)
 
@@ -47,12 +44,8 @@ describe('Order Modal', () => {
 
   describe('isLoading', () => {
     it('should show spinner', async () => {
-      mockUseCheckout.mockImplementation(() => ({
-        error: null,
-        handleCheckout: jest.fn(),
-        isLoading: true,
-        resetError: jest.fn()
-      }))
+      mockUseCheckout.mockImplementation(loadingUseCheckout)
+
       mockUseOrderStore.mockImplementation((fn) => {
         const mockState = {
           items: [],
@@ -76,12 +69,8 @@ describe('Order Modal', () => {
 
   describe('no products in order', () => {
     it('should show the options of order and continue without ordering', async () => {
-      mockUseCheckout.mockImplementation(() => ({
-        error: null,
-        handleCheckout: jest.fn(),
-        isLoading: false,
-        resetError: jest.fn()
-      }))
+      mockUseCheckout.mockImplementation(initialUseCheckout)
+
       mockUseOrderStore.mockImplementation((fn) => {
         const mockState = {
           items: [],
@@ -104,12 +93,8 @@ describe('Order Modal', () => {
     })
 
     it('should call handleOrder function with NOT_ORDER when clicking on continue with reservation', async () => {
-      mockUseCheckout.mockImplementation(() => ({
-        error: null,
-        handleCheckout: jest.fn(),
-        isLoading: false,
-        resetError: jest.fn()
-      }))
+      mockUseCheckout.mockImplementation(initialUseCheckout)
+
       mockUseOrderStore.mockImplementation((fn) => {
         const mockState = {
           items: [],
@@ -137,12 +122,8 @@ describe('Order Modal', () => {
     })
 
     it('should call handleOrder function with ORDER when clicking on order now', async () => {
-      mockUseCheckout.mockImplementation(() => ({
-        error: null,
-        handleCheckout: jest.fn(),
-        isLoading: false,
-        resetError: jest.fn()
-      }))
+      mockUseCheckout.mockImplementation(initialUseCheckout)
+
       mockUseOrderStore.mockImplementation((fn) => {
         const mockState = {
           items: [],
@@ -172,12 +153,8 @@ describe('Order Modal', () => {
 
   describe('products in order', () => {
     it('should show the options of add more products and go to checkout', async () => {
-      mockUseCheckout.mockImplementation(() => ({
-        error: null,
-        handleCheckout: jest.fn(),
-        isLoading: false,
-        resetError: jest.fn()
-      }))
+      mockUseCheckout.mockImplementation(initialUseCheckout)
+
       mockUseOrderStore.mockImplementation((fn) => {
         const mockState = {
           items: [
@@ -201,6 +178,7 @@ describe('Order Modal', () => {
 
         return fn(mockState)
       })
+
       const mockHandleOrder = jest.fn()
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 
@@ -209,12 +187,8 @@ describe('Order Modal', () => {
     })
 
     it('should call handleOrder function with ORDER when clicking on add more products', async () => {
-      mockUseCheckout.mockImplementation(() => ({
-        error: null,
-        handleCheckout: jest.fn(),
-        isLoading: false,
-        resetError: jest.fn()
-      }))
+      mockUseCheckout.mockImplementation(initialUseCheckout)
+
       mockUseOrderStore.mockImplementation((fn) => {
         const mockState = {
           items: [

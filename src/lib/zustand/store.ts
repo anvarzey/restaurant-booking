@@ -10,7 +10,7 @@ export interface Item {
   priceWithDiscount: number
 }
 
-interface OrderState {
+export interface OrderState {
   items: Item[]
   subtotal: number
   total: number
