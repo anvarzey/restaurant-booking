@@ -4,7 +4,8 @@ import { act, fireEvent, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import useCheckout from '~/hooks/useCheckout'
 import useOrderStore from '~/lib/zustand/store'
-import { fakeErrorMessage, initialUseCheckout, loadingUseCheckout } from '../../testsUtils/fakeData'
+import { fakeErrorMessage } from '../../testsUtils/fakeData'
+import { initialOrderState, initialUseCheckout, loadingUseCheckout } from '../../testsUtils/mocks'
 
 const mockUseCheckout = useCheckout as jest.MockedFunction<typeof useCheckout>
 const mockUseOrderStore = useOrderStore as jest.MockedFunction<typeof useOrderStore>
@@ -21,20 +22,7 @@ describe('Order Modal', () => {
   it('should render correctly', async () => {
     mockUseCheckout.mockImplementation(initialUseCheckout)
 
-    mockUseOrderStore.mockImplementation((fn) => {
-      const mockState = {
-        items: [],
-        totalQuantity: 0,
-        subtotal: 0,
-        total: 0,
-        add: jest.fn(),
-        update: jest.fn(),
-        remove: jest.fn(),
-        reset: jest.fn()
-      }
-
-      return fn(mockState)
-    })
+    mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
 
     const mockHandleOrder = jest.fn()
     await render(<OrderModal handleOrder={mockHandleOrder} />)
@@ -46,20 +34,7 @@ describe('Order Modal', () => {
     it('should show spinner', async () => {
       mockUseCheckout.mockImplementation(loadingUseCheckout)
 
-      mockUseOrderStore.mockImplementation((fn) => {
-        const mockState = {
-          items: [],
-          totalQuantity: 0,
-          subtotal: 0,
-          total: 0,
-          add: jest.fn(),
-          update: jest.fn(),
-          remove: jest.fn(),
-          reset: jest.fn()
-        }
-
-        return fn(mockState)
-      })
+      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
       const mockHandleOrder = jest.fn()
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 
@@ -71,21 +46,10 @@ describe('Order Modal', () => {
     it('should show the options of order and continue without ordering', async () => {
       mockUseCheckout.mockImplementation(initialUseCheckout)
 
-      mockUseOrderStore.mockImplementation((fn) => {
-        const mockState = {
-          items: [],
-          totalQuantity: 0,
-          subtotal: 0,
-          total: 0,
-          add: jest.fn(),
-          update: jest.fn(),
-          remove: jest.fn(),
-          reset: jest.fn()
-        }
+      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
 
-        return fn(mockState)
-      })
       const mockHandleOrder = jest.fn()
+
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 
       screen.getByRole('button', { name: 'No, continue with reservation' })
@@ -95,21 +59,10 @@ describe('Order Modal', () => {
     it('should call handleOrder function with NOT_ORDER when clicking on continue with reservation', async () => {
       mockUseCheckout.mockImplementation(initialUseCheckout)
 
-      mockUseOrderStore.mockImplementation((fn) => {
-        const mockState = {
-          items: [],
-          totalQuantity: 0,
-          subtotal: 0,
-          total: 0,
-          add: jest.fn(),
-          update: jest.fn(),
-          remove: jest.fn(),
-          reset: jest.fn()
-        }
+      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
 
-        return fn(mockState)
-      })
       const mockHandleOrder = jest.fn()
+
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 
       const btn = screen.getByRole('button', { name: 'No, continue with reservation' })
@@ -124,21 +77,10 @@ describe('Order Modal', () => {
     it('should call handleOrder function with ORDER when clicking on order now', async () => {
       mockUseCheckout.mockImplementation(initialUseCheckout)
 
-      mockUseOrderStore.mockImplementation((fn) => {
-        const mockState = {
-          items: [],
-          totalQuantity: 0,
-          subtotal: 0,
-          total: 0,
-          add: jest.fn(),
-          update: jest.fn(),
-          remove: jest.fn(),
-          reset: jest.fn()
-        }
+      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
 
-        return fn(mockState)
-      })
       const mockHandleOrder = jest.fn()
+
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 
       const btn = screen.getByRole('button', { name: 'Order Now' })

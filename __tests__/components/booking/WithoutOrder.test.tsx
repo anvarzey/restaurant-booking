@@ -3,7 +3,8 @@ import { act, fireEvent, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import useBooking from '~/hooks/useBooking'
 import { useSession } from 'next-auth/react'
-import { fakeName, initialUseBooking, loadingUseBooking } from '../../testsUtils/fakeData'
+import { fakeName } from '../../testsUtils/fakeData'
+import { initialUseBooking, loadingUseBooking } from '../../testsUtils/mocks'
 
 const mockUseBooking = useBooking as jest.MockedFunction<typeof useBooking>
 const mockUseSession = useSession as jest.MockedFunction<typeof useSession>

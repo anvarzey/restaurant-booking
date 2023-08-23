@@ -59,7 +59,7 @@ export default function Order (): ReactElement {
           <div>{formatPrice(total)}</div>
         </div>
         <div>
-          <Button href='/checkout' variant='filled' onClick={handleClick} disabled={items.length < 1}>
+          <Button variant='filled' onClick={handleClick} disabled={items.length < 1}>
             Go to Checkout
           </Button>
         </div>
