@@ -45,6 +45,7 @@ export default function OrderModal (): ReactElement {
             <h2 className={`text-3xl ${artifika.className}`}>Order</h2>
             <button data-testid='close-modal' className='h-6 w-6 hover:text-primary' onClick={handleClose}>
               <VscChromeClose className='h-full w-auto' />
+              <span className='hidden'>Close modal</span>
             </button>
           </div>
           <div className='flex justify-end'>
@@ -61,6 +62,7 @@ export default function OrderModal (): ReactElement {
                     <div className='flex items-center'>
                       <button className='h-4 w-4' onClick={() => remove(item.id)}>
                         <BiSolidMinusCircle className='h-full w-auto text-primary' />
+                        <span className='hidden'>Remove item</span>
                       </button>
                       <div className='relative h-20 w-20'>
                         <Image

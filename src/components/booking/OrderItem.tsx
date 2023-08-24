@@ -23,14 +23,17 @@ export default function OrderItem ({ item }: { item: Item }): ReactElement {
   }
   return (
     <li className='flex items-center justify-between'>
-      <button className='h-4 w-4' onClick={() => remove(item.id)}>
-        <BiSolidMinusCircle className='h-full w-auto text-primary' />
-      </button>
-      <div className='text-lg truncate'>{item.name}</div>
+      <div className='flex items-center gap-4'>
+        <button className='h-4 w-4' onClick={() => remove(item.id)}>
+          <BiSolidMinusCircle className='h-full w-auto text-primary' />
+          <span className='hidden'>Remove item</span>
+        </button>
+        <div className='text-lg truncate'>{item.name}</div>
+      </div>
       <div>
         <span>x</span>
         <select
-          name=''
+          name={`Quantity of ${item.name}`}
           id=''
           value={item.quantity}
           onChange={handleChange}

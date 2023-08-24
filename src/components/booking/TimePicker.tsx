@@ -18,7 +18,9 @@ export default function TimePicker ({ date, handleReset, handleTime }: IProps): 
 
   return (
     <div>
-      <h2 className={`text-3xl text-center ${artifika.className}`}>Pick your time</h2>
+      <h2 className={`text-3xl text-center ${artifika.className}`}>
+        Pick your time
+      </h2>
       <div className='pb-8'>
         <button onClick={handleReset} className='px-2 py-1 font-bold text-primary'>
           Return to calendar
@@ -26,7 +28,7 @@ export default function TimePicker ({ date, handleReset, handleTime }: IProps): 
         <h2 className='text-lg font-semibold text-center mb-4'>Available Times</h2>
       </div>
       {
-        error !== undefined
+        error
           ? <div>An error has been occurred !</div>
           : isLoading
             ? (
