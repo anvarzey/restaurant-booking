@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import useBooking from '~/hooks/useBooking'
+import { fakeErrorMessage } from '../testsUtils/fakeData'
 
 describe('Successful response', () => {
   beforeEach(() => {
@@ -37,12 +38,11 @@ describe('Successful response', () => {
 })
 
 describe('Error response', () => {
-  const fakeError = 'Fake Error'
   beforeEach(() => {
     global.fetch = jest.fn(async () => (
       await Promise.resolve({
         json: async () => await Promise.resolve({
-          error: fakeError
+          error: fakeErrorMessage
         })
       })
     )) as jest.Mock
@@ -63,7 +63,7 @@ describe('Error response', () => {
   ))
 
     expect(res).toBeNull()
-    expect(result.current.error).toEqual(fakeError)
+    expect(result.current.error).toEqual(fakeErrorMessage)
   })
 })
 

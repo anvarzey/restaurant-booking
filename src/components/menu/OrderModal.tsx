@@ -32,8 +32,9 @@ export default function OrderModal (): ReactElement {
     <>
       <div className='flex justify-end lg:px-2 lg:pb-16'>
         <div className='h-8 relative'>
-          <button data-testid='open-modal' className='h-6 w-6' onClick={handleOpen}>
+          <button className='h-6 w-6' onClick={handleOpen}>
             <HiOutlinePencilSquare className='h-full w-auto' />
+            <span className='hidden'>Open modal</span>
           </button>
           <div className='text-xs py-1 px-2 bg-primary text-white rounded-full absolute -top-3.5 -left-5 font-bold'>{totalQuantity}</div>
         </div>
@@ -43,7 +44,7 @@ export default function OrderModal (): ReactElement {
         <div className='fixed bg-white top-0 right-0 h-screen w-2/6 p-4'>
           <div className='flex items-center justify-between mb-8'>
             <h2 className={`text-3xl ${artifika.className}`}>Order</h2>
-            <button data-testid='close-modal' className='h-6 w-6 hover:text-primary' onClick={handleClose}>
+            <button className='h-6 w-6 hover:text-primary' onClick={handleClose}>
               <VscChromeClose className='h-full w-auto' />
               <span className='hidden'>Close modal</span>
             </button>

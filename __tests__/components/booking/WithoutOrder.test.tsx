@@ -49,9 +49,7 @@ describe('Without order', () => {
   })
 
   describe('Unauthenticated user', () => {
-    it('should call handleReset function when clicking on Change Date/Time button', async () => {
-      mockUseBooking.mockImplementation(initialUseBooking)
-
+    beforeEach(() => {
       mockUseSession.mockImplementation(() => {
         return {
           data: null,
@@ -59,6 +57,11 @@ describe('Without order', () => {
           update: async () => await Promise.resolve(null)
         }
       })
+    })
+
+    it('should call handleReset function when clicking on Change Date/Time button', async () => {
+      mockUseBooking.mockImplementation(initialUseBooking)
+
       const mockHandleReset = jest.fn()
       await render(<WithoutOrder date='' numberOfPeople={2} time='' handleReset={mockHandleReset} />)
 
@@ -77,13 +80,7 @@ describe('Without order', () => {
           handleBooking: mockHandleBooking
         }
       })
-      mockUseSession.mockImplementation(() => {
-        return {
-          data: null,
-          status: 'unauthenticated',
-          update: async () => await Promise.resolve(null)
-        }
-      })
+
       const mockHandleReset = jest.fn()
       await render(<WithoutOrder date='' numberOfPeople={2} time='' handleReset={mockHandleReset} />)
 
@@ -95,17 +92,7 @@ describe('Without order', () => {
   })
 
   describe('Authenticated user', () => {
-    it('should open status modal after clicking on Confirm Booking button', async () => {
-      const mockHandleBooking = jest.fn().mockImplementationOnce(() => 'Fake Success')
-
-      mockUseBooking.mockImplementation(() => {
-        return {
-          isLoading: false,
-          error: null,
-          handleBooking: mockHandleBooking
-        }
-      })
-
+    beforeEach(() => {
       mockUseSession.mockImplementation(() => {
         return {
           data: {
@@ -118,6 +105,18 @@ describe('Without order', () => {
           },
           status: 'authenticated',
           update: async () => await Promise.resolve(null)
+        }
+      })
+    })
+
+    it('should open status modal after clicking on Confirm Booking button', async () => {
+      const mockHandleBooking = jest.fn().mockImplementationOnce(() => 'Fake Success')
+
+      mockUseBooking.mockImplementation(() => {
+        return {
+          isLoading: false,
+          error: null,
+          handleBooking: mockHandleBooking
         }
       })
 
@@ -141,21 +140,6 @@ describe('Without order', () => {
           isLoading: false,
           error: null,
           handleBooking: mockHandleBooking
-        }
-      })
-
-      mockUseSession.mockImplementation(() => {
-        return {
-          data: {
-            user: {
-              id: 'fakeid',
-              name: fakeName,
-              role: 'USER'
-            },
-            expires: ''
-          },
-          status: 'authenticated',
-          update: async () => await Promise.resolve(null)
         }
       })
 

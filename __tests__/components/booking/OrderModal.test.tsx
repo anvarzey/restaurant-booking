@@ -43,13 +43,14 @@ describe('Order Modal', () => {
   })
 
   describe('no products in order', () => {
-    it('should show the options of order and continue without ordering', async () => {
+    const mockHandleOrder = jest.fn()
+
+    beforeEach(() => {
       mockUseCheckout.mockImplementation(initialUseCheckout)
-
       mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
+    })
 
-      const mockHandleOrder = jest.fn()
-
+    it('should show the options of order and continue without ordering', async () => {
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 
       screen.getByRole('button', { name: 'No, continue with reservation' })
@@ -57,12 +58,6 @@ describe('Order Modal', () => {
     })
 
     it('should call handleOrder function with NOT_ORDER when clicking on continue with reservation', async () => {
-      mockUseCheckout.mockImplementation(initialUseCheckout)
-
-      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
-
-      const mockHandleOrder = jest.fn()
-
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 
       const btn = screen.getByRole('button', { name: 'No, continue with reservation' })
@@ -75,12 +70,6 @@ describe('Order Modal', () => {
     })
 
     it('should call handleOrder function with ORDER when clicking on order now', async () => {
-      mockUseCheckout.mockImplementation(initialUseCheckout)
-
-      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
-
-      const mockHandleOrder = jest.fn()
-
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 
       const btn = screen.getByRole('button', { name: 'Order Now' })
@@ -94,96 +83,18 @@ describe('Order Modal', () => {
   })
 
   describe('products in order', () => {
-    it('should show the options of add more products and go to checkout', async () => {
-      mockUseCheckout.mockImplementation(initialUseCheckout)
+    const fakeItems = [
+      {
+        id: 'fakeId',
+        name: 'FakeProduct',
+        image: '',
+        quantity: 2,
+        price: 10,
+        priceWithDiscount: 8
+      }
+    ]
 
-      mockUseOrderStore.mockImplementation((fn) => {
-        const mockState = {
-          items: [
-            {
-              id: 'fakeId',
-              name: 'FakeProduct',
-              image: '',
-              quantity: 2,
-              price: 10,
-              priceWithDiscount: 8
-            }
-          ],
-          totalQuantity: 2,
-          subtotal: 20,
-          total: 16,
-          add: jest.fn(),
-          update: jest.fn(),
-          remove: jest.fn(),
-          reset: jest.fn()
-        }
-
-        return fn(mockState)
-      })
-
-      const mockHandleOrder = jest.fn()
-      await render(<OrderModal handleOrder={mockHandleOrder} />)
-
-      screen.getByRole('button', { name: 'Add more products' })
-      screen.getByRole('button', { name: 'Go to Checkout' })
-    })
-
-    it('should call handleOrder function with ORDER when clicking on add more products', async () => {
-      mockUseCheckout.mockImplementation(initialUseCheckout)
-
-      mockUseOrderStore.mockImplementation((fn) => {
-        const mockState = {
-          items: [
-            {
-              id: 'fakeId',
-              name: 'FakeProduct',
-              image: '',
-              quantity: 2,
-              price: 10,
-              priceWithDiscount: 8
-            }
-          ],
-          totalQuantity: 2,
-          subtotal: 20,
-          total: 16,
-          add: jest.fn(),
-          update: jest.fn(),
-          remove: jest.fn(),
-          reset: jest.fn()
-        }
-
-        return fn(mockState)
-      })
-      const mockHandleOrder = jest.fn()
-      await render(<OrderModal handleOrder={mockHandleOrder} />)
-
-      const btn = screen.getByRole('button', { name: 'Add more products' })
-
-      await act(async () => {
-        await fireEvent.click(btn)
-      })
-
-      expect(mockHandleOrder).toBeCalledWith(ORDER.ORDER)
-    })
-
-    it('should call handleCheckout function when clicking on go to checkout', async () => {
-      const mockHandleCheckout = jest.fn()
-      const fakeItems = [
-        {
-          id: 'fakeId',
-          name: 'FakeProduct',
-          image: '',
-          quantity: 2,
-          price: 10,
-          priceWithDiscount: 8
-        }
-      ]
-      mockUseCheckout.mockImplementation(() => ({
-        error: null,
-        handleCheckout: mockHandleCheckout,
-        isLoading: false,
-        resetError: jest.fn()
-      }))
+    beforeEach(() => {
       mockUseOrderStore.mockImplementation((fn) => {
         const mockState = {
           items: fakeItems,
@@ -198,6 +109,43 @@ describe('Order Modal', () => {
 
         return fn(mockState)
       })
+    })
+
+    it('should show the options of add more products and go to checkout', async () => {
+      mockUseCheckout.mockImplementation(initialUseCheckout)
+
+      const mockHandleOrder = jest.fn()
+      await render(<OrderModal handleOrder={mockHandleOrder} />)
+
+      screen.getByRole('button', { name: 'Add more products' })
+      screen.getByRole('button', { name: 'Go to Checkout' })
+    })
+
+    it('should call handleOrder function with ORDER when clicking on add more products', async () => {
+      mockUseCheckout.mockImplementation(initialUseCheckout)
+
+      const mockHandleOrder = jest.fn()
+      await render(<OrderModal handleOrder={mockHandleOrder} />)
+
+      const btn = screen.getByRole('button', { name: 'Add more products' })
+
+      await act(async () => {
+        await fireEvent.click(btn)
+      })
+
+      expect(mockHandleOrder).toBeCalledWith(ORDER.ORDER)
+    })
+
+    it('should call handleCheckout function when clicking on go to checkout', async () => {
+      const mockHandleCheckout = jest.fn()
+
+      mockUseCheckout.mockImplementation(() => ({
+        error: null,
+        handleCheckout: mockHandleCheckout,
+        isLoading: false,
+        resetError: jest.fn()
+      }))
+
       const mockHandleOrder = jest.fn()
       await render(<OrderModal handleOrder={mockHandleOrder} />)
 

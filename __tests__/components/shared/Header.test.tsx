@@ -10,12 +10,15 @@ jest.mock('next-auth/react')
 
 describe('Header', () => {
   describe('Unauthenticated user', () => {
-    it('should render', async () => {
+    beforeEach(() => {
       mockNextAuthReact.useSession.mockImplementation(() => ({
         update: async () => await Promise.resolve(null),
         data: null,
         status: 'unauthenticated'
       }))
+    })
+
+    it('should render', async () => {
       await render(<Header />)
 
       screen.getByRole('link', { name: /Home/i })
@@ -23,11 +26,6 @@ describe('Header', () => {
     })
 
     it('should call signIn function when clicking on sign in button', async () => {
-      mockNextAuthReact.useSession.mockImplementation(() => ({
-        update: async () => await Promise.resolve(null),
-        data: null,
-        status: 'unauthenticated'
-      }))
       await render(<Header />)
 
       const btn = screen.getByRole('button', { name: /Sign In/i })
@@ -38,7 +36,7 @@ describe('Header', () => {
     })
   })
   describe('Authenticated user', () => {
-    it('should render user\'s name instead of sign in button', async () => {
+    beforeEach(() => {
       mockNextAuthReact.useSession.mockImplementation(() => ({
         update: async () => await Promise.resolve(null),
         data: {
@@ -51,6 +49,9 @@ describe('Header', () => {
         },
         status: 'authenticated'
       }))
+    })
+
+    it('should render user\'s name instead of sign in button', async () => {
       await render(<Header />)
 
       screen.getByText(fakeName)
@@ -60,18 +61,6 @@ describe('Header', () => {
     })
 
     it('should call signOut function when clicking on sign out button', async () => {
-      mockNextAuthReact.useSession.mockImplementation(() => ({
-        update: async () => await Promise.resolve(null),
-        data: {
-          user: {
-            id: 'fakeid',
-            name: fakeName,
-            role: 'USER'
-          },
-          expires: ''
-        },
-        status: 'authenticated'
-      }))
       await render(<Header />)
 
       const btn = screen.getByRole('button', { name: fakeName })

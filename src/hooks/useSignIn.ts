@@ -17,9 +17,7 @@ export default function useSignIn (): IReturn {
     setIsLoading(true)
     const res = await signIn('credentials', { email, password, redirect: false })
     const url = new URL(res?.url ?? 'http://localhost:3000')
-    // console.log('Sign In Response => ', url)
-    // const callbackRegex = /\?callbackUrl=/
-    // console.log('Response => ', res)
+
     setIsLoading(false)
     if (res !== undefined) {
       if (!res.url) {
@@ -29,12 +27,6 @@ export default function useSignIn (): IReturn {
       if (!url.search.length) {
         return url.href
       } else {
-      // if (url.search.match(callbackRegex)) {
-        //   const callbackUrl = url.search.split('=')[1].replaceAll('%3A', ':').replaceAll('%2F', '/')
-        //   router.push(callbackUrl)
-        // } else {
-        //   router.push('/')
-        // }
         return '/'
       }
     }

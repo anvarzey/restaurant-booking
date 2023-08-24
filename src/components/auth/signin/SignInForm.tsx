@@ -22,9 +22,6 @@ export default function SignInForm (): ReactElement {
 
     const url = await handleSignIn({ email, password })
 
-    console.log('URL Response => ', url)
-    console.log('ERROR => ', error)
-
     if (url) {
       router.push(url)
     }

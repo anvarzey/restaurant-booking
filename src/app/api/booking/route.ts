@@ -23,16 +23,11 @@ export const POST = async (req: Request): Promise<NextResponse> => {
       }
     })
 
-    const userRes = await prisma.user.update({
+    await prisma.user.update({
       where: { id },
       data: {
         reservationsIds: { push: bookingRes.id }
       }
-    })
-
-    console.log({
-      bookingRes,
-      userRes
     })
 
     return NextResponse.json({ message: 'OK' })

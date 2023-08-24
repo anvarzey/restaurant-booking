@@ -5,19 +5,11 @@ import useSWR from 'swr'
 import { fakeErrorMessage } from '../../testsUtils/fakeData'
 
 const mockUseSWR = useSWR as jest.MockedFunction<typeof useSWR>
-// const mockUseSWR = jest.fn()
-// let error: Error | undefined
-// let isLoading = false
 
 jest.mock('swr', () => {
   return {
     __esModule: true,
     default: jest.fn()
-    //  => ({
-    //   data: [],
-    //   isLoading: true,
-    //   error: undefined
-    // })
   }
 })
 

@@ -34,7 +34,6 @@ export default function SignupForm (): ReactElement {
     if (res.ok) {
       await router.push('/auth/signin')
     }
-    console.log(res)
   }
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises

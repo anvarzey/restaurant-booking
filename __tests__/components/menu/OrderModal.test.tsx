@@ -10,9 +10,11 @@ jest.mock('../../../src/lib/zustand/store')
 jest.mock('zustand/shallow')
 
 describe('Order Modal', () => {
-  it('should render correctly', async () => {
+  beforeEach(() => {
     mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
+  })
 
+  it('should render correctly', async () => {
     await render(<OrderModal />)
 
     screen.getByText('Order')
@@ -20,8 +22,6 @@ describe('Order Modal', () => {
 
   describe('body', () => {
     it('should be closed when rendering', async () => {
-      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
-
       await render(<OrderModal />)
 
       const modalBody = screen.getByTestId('modal-body')
@@ -30,11 +30,9 @@ describe('Order Modal', () => {
     })
 
     it('should open modal when clicking on open icon', async () => {
-      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
-
       await render(<OrderModal />)
 
-      const openBtn = screen.getByTestId('open-modal')
+      const openBtn = screen.getByRole('button', { name: 'Open modal' })
       fireEvent.click(openBtn)
 
       const modalBody = screen.getByTestId('modal-body')
@@ -43,14 +41,12 @@ describe('Order Modal', () => {
     })
 
     it('should close modal when clicking on close icon', async () => {
-      mockUseOrderStore.mockImplementation((fn) => fn(initialOrderState))
-
       await render(<OrderModal />)
 
-      const openBtn = screen.getByTestId('open-modal')
+      const openBtn = screen.getByRole('button', { name: 'Open modal' })
       fireEvent.click(openBtn)
 
-      const closeBtn = screen.getByTestId('close-modal')
+      const closeBtn = screen.getByRole('button', { name: 'Close modal' })
       fireEvent.click(closeBtn)
 
       const modalBody = screen.getByTestId('modal-body')
