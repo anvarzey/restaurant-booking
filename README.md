@@ -17,7 +17,7 @@
 - React-Calendar
 - React-Icons
 
-### Testing(IN PROGRESS):
+### Testing:
 - Jest
 - React-Testing-Library
 
