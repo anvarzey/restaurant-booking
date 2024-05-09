@@ -30,8 +30,7 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
     }
   })
 
-  const { STRIPE_SECRET } = process.env
-  const stripe = new Stripe(STRIPE_SECRET as string, {
+  const stripe = new Stripe(process.env.STRIPE_SECRET as string, {
     apiVersion: '2022-11-15',
     typescript: true
   })
@@ -39,8 +38,8 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
   const session = await stripe.checkout.sessions.create({
     line_items: formattedProductsList,
     mode: 'payment',
-    success_url: 'http://localhost:3000/checkout/success',
-    cancel_url: 'http://localhost:3000/checkout/canceled'
+    success_url: 'https://restaurant-booking-tau.vercel.app/checkout/success',
+    cancel_url: 'https://restaurant-booking-tau.vercel.app/checkout/canceled'
   })
 
   if (session.url !== null) {

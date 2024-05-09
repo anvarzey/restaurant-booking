@@ -27,7 +27,7 @@ export default async function Home (): Promise<ReactElement> {
   return (
     <>
       <Header />
-      <main className='bg-neutral-100'>
+      <main className='bg-neutral-100 max-w-screen-xl mx-auto'>
         <div className='flex items-center justify-between lg:pt-10 lg:px-20 h-screen'>
           <div>
             <div className={`text-9xl mb-4 ${artifika.className}`}>

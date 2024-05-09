@@ -25,15 +25,6 @@ export default function SignInForm (): ReactElement {
     if (url) {
       router.push(url)
     }
-
-    /*
-      From SignIn Button => http://localhost:3000/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F
-      From Middleware => destination url
-      Error {
-        error: CredentialsSignin
-        url: null
-      }
-    */
   }
 
   return (

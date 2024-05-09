@@ -16,7 +16,8 @@ export default function useSignIn (): IReturn {
   const handleSignIn = async ({ email, password }: { email: string, password: string }): Promise<string | null> => {
     setIsLoading(true)
     const res = await signIn('credentials', { email, password, redirect: false })
-    const url = new URL(res?.url ?? 'http://localhost:3000')
+
+    const url = new URL(res?.url ?? 'https://restaurant-booking-tau.vercel.app')
 
     setIsLoading(false)
     if (res !== undefined) {

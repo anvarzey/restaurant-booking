@@ -10,7 +10,7 @@ export default async function page (): Promise<ReactElement> {
   return (
     <div className='h-screen flex flex-col'>
       <Header />
-      <main className='grow bg-neutral-100'>
+      <main className='grow bg-neutral-100 max-w-screen-xl mx-auto'>
         <div className='lg:pt-28 lg:px-20 lg:pb-10'>
           <Booking closedDays={formattedClosedDays} />
         </div>

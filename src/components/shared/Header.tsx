@@ -41,7 +41,7 @@ export default function Header (): ReactElement {
   }
 
   return (
-    <header className='absolute top-0 left-0 w-full lg:px-20 lg:py-4'>
+    <header className='absolute top-0 left-0 w-full max-w-screen-xl mx-auto lg:px-20 lg:py-4 xl:left-1/2 xl:-translate-x-1/2'>
       <div className='flex items-center justify-between border-b border-neutral-300 lg:pb-4'>
         <div className={`text-3xl ${artifika.className}`}>LOGO</div>
         <nav>

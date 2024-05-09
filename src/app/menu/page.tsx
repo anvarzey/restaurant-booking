@@ -12,7 +12,7 @@ export default function page ({ searchParams }: { searchParams: { [key: string]:
   return (
     <>
       <Header />
-      <main className='bg-neutral-100 lg:gap-4 lg:px-20 lg:pt-28 lg:pb-8'>
+      <main className='bg-neutral-100 max-w-screen-xl mx-auto lg:gap-4 lg:px-20 lg:pt-28 lg:pb-8'>
         <h2 className={`text-4xl text-center ${artifika.className}`}>Menu</h2>
         {OrderModal !== null
           ? <OrderModal />
